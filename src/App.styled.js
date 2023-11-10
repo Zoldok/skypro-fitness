@@ -6,6 +6,7 @@ export const MainApp = styled.div`
     padding: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
   }
 
   *:before,
@@ -49,6 +50,7 @@ export const MainApp = styled.div`
     height: 100%;
     /* font-family: 'StratosSkyeng', sans-serif; */
     color: #ffffff;
+
   }
 
   ._btn-icon:hover svg {
@@ -78,7 +80,7 @@ export const MainApp = styled.div`
   margin: 0;
   padding: 0;
   background-color: #181818;
-  height: 100vh;
+  // height: 100vh;
   // max-width: 1240px;
   // display: flex;
   // justify-content: center;

@@ -15,12 +15,14 @@ const StyledSection = styled.section`
     flex-direction: column;
     align-content: center;
     flex-wrap: wrap;
+    // flex-wrap: nowrap;
   
 `;
 
 export default function Profile() {
   return (
     <StyledSection>
+
       <Header/>
       <MyProfile/>
       <MyCourseInProfile/>
