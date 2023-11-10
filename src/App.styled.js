@@ -50,6 +50,7 @@ export const MainApp = styled.div`
     height: 100%;
     /* font-family: 'StratosSkyeng', sans-serif; */
     color: #ffffff;
+    background-color: #FAFAFA;
 
   }
 
