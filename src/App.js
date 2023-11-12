@@ -1,6 +1,6 @@
 import * as S from './App.styled'
 import './App.css'
-import  AppRoutes  from './routes'
+import AppRoutes from './routes'
 
 function App() {
   return (
