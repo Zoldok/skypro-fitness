@@ -9,7 +9,7 @@ function PromoSection() {
           Начните заниматься спортом и улучшите качество жизни
         </S.PromoTitle>
         <S.PromoSticker>
-          <span>Измени своё тело за полгода</span>
+          <span>.</span>
         </S.PromoSticker>
       </S.ContentWrapper>
     </S.Promo>

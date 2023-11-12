@@ -1,22 +1,19 @@
-import styled from 'styled-components';
+import * as S from './Main.styled'
 import PromoSection from '../../components/PromoSection/PromoSection'
+import HeaderMain from '../../components/HeaderMain/HeaderMain';
+import CardsSection from '../../components/CardsSection/CardsSection';
 
-const StyledMain = styled.div`
-  padding-left: calc(50% - 580px);
-  padding-right: calc(50% - 580px);
-  background: #271a58;
-  min-height: 100vh;
 
-  @media (max-width: 1190px) {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-`;
 
 export default function Main() {
   return (
-    <StyledMain>
-      <PromoSection />
-    </StyledMain>
+    <S.StyledMain>
+        <HeaderMain />
+        <PromoSection />
+        <CardsSection />
+        <S.footerMain>
+            <S.BigButtonMain>Наверх</S.BigButtonMain>
+        </S.footerMain>
+    </S.StyledMain>
   )
 }

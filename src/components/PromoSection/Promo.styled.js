@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import stickerSvg from '../../img/sticker.svg'
+import styled from 'styled-components';
 
 export const Promo = styled.section``
 
@@ -49,7 +48,7 @@ export const PromoSticker = styled.div`
 
   flex-direction: column;
 
-  background-image: url(${stickerSvg});
+  background-image: url('../../img/Salesticker.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
