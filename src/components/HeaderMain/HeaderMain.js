@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import * as S from './HeaderMain.styled'
-import { useGetAllCoursesQuery } from "../../Service/Service"
+// import { useGetAllCoursesQuery } from "../../Service/Service"
 
 function HeaderMain() {
-  const { data } = useGetAllCoursesQuery();
-  console.log(data);
+  // const { data } = useGetAllCoursesQuery();
+  // console.log(data);
 
   return (
     <S.HeaderMain>
