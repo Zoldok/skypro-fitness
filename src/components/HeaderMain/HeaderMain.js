@@ -5,7 +5,7 @@ function HeaderMain() {
   return (
     <S.HeaderMain>
       <S.LogoMain src="../../../img/LogoMain.svg" alt="logo" />
-      <Link to="/login">
+      <Link to="/AuthPage">
         <S.StyledSmallButton> Войти </S.StyledSmallButton>
       </Link>
     </S.HeaderMain>

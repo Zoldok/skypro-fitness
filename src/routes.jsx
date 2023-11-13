@@ -2,7 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 
 import Main from './pages/Main/Main'
 import Profile from './pages/profile'
-import AuthPage from './pages/Authpage/AuthPage'
+
+
 
 export default function AppRoutes() {
   return (
