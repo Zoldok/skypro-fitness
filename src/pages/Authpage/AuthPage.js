@@ -183,17 +183,23 @@ export default function AuthPage({ isLoginMode = false }) {
                   setPassword(event.target.value)
                 }}
               />
+              <S.ModalInput
+                type="password"
+                name="repeat-password"
+                placeholder="Повторите пароль"
+                value={repeatPassword}
+                onChange={(event) => {
+                  setRepeatPassword(event.target.value)
+                }}
+              />
             </S.Inputs>
             {/* {error && <S.Error>{error}</S.Error>} */}
             <S.Buttons>
               <S.PrimaryButton>
-                {/* // disabled={isLoading} onClick={handleLogin}> //{' '}
-                {isLoading ? 'Осуществляется вход' : 'Войти'} */}
-                Войти
+                {/* {isLoading? 'Осуществляется регистрация' :
+              'Зарегистрироваться' */}
+                Зарегистрироваться
               </S.PrimaryButton>
-              <Link to="/register">
-                <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
-              </Link>
             </S.Buttons>
           </>
         ) : (
@@ -217,23 +223,17 @@ export default function AuthPage({ isLoginMode = false }) {
                   setPassword(event.target.value)
                 }}
               />
-              <S.ModalInput
-                type="password"
-                name="repeat-password"
-                placeholder="Повторите пароль"
-                value={repeatPassword}
-                onChange={(event) => {
-                  setRepeatPassword(event.target.value)
-                }}
-              />
             </S.Inputs>
             {/* {error && <S.Error>{error}</S.Error>} */}
             <S.Buttons>
               <S.PrimaryButton>
-                {/* {isLoading? 'Осуществляется регистрация' :
-                'Зарегистрироваться' */}
-                Зарегистрироваться
+                {/* // disabled={isLoading} onClick={handleLogin}> //{' '}
+              {isLoading ? 'Осуществляется вход' : 'Войти'} */}
+                Войти
               </S.PrimaryButton>
+              <Link to="/register">
+                <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
+              </Link>
             </S.Buttons>
           </>
         )}
