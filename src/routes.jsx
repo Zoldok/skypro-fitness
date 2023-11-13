@@ -1,7 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import Profile from "./pages/profile";
-import Main from "./pages/Main/Main";
 
+import { Routes, Route } from 'react-router-dom'
+import Profile from './pages/profile'
 
 export default function AppRoutes() {
   return (
@@ -9,5 +8,5 @@ export default function AppRoutes() {
       <Route path="/" element={<Main />} />
       <Route path="/profile" element={<Profile />} />
     </Routes>
-  );
+  )
 }
