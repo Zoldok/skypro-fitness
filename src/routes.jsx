@@ -1,6 +1,7 @@
 
 import { Routes, Route } from 'react-router-dom'
 import Profile from './pages/profile'
+import Main from './pages/Main/Main'
 
 export default function AppRoutes() {
   return (
