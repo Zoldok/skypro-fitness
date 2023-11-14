@@ -15,8 +15,6 @@ export const BlockTrain = styled.img`
 `
 export const NameCourseUser = styled.p`
   color: #000;
-  font-variant-numeric: lining-nums proportional-nums;
-  font-family: StratosSkyeng;
   font-size: 48px;
   font-style: normal;
   font-weight: 400;
