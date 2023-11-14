@@ -1,5 +1,5 @@
 import SidebarLogin from '../SidebarUser/SidebarPersonal'
-import * as S from "./Header.styles"
+import * as S from './Header.styles'
 
 function Header() {
   return (
