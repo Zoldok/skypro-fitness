@@ -1,6 +1,11 @@
+import { useGetAllCoursesQuery } from '../../Service/Service'
 import * as S from './acquaint.styled'
 
 export default function Acquaint() {
+  const { data } = useGetAllCoursesQuery()
+  console.log('данные',data);
+
+
   return (
     <S.StyledPromo>
       <S.NavLogo>
