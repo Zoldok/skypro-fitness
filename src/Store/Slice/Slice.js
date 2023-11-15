@@ -1,27 +1,59 @@
-// import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//     courses: [],
-//     workouts: [],
-//     users: [],
-// }
+const initialState = {
+	isAuthenticated: false,
+	userId: null, 
+	courses: null,
+	currentWorkout: null,
+	email: null,
+    forProgress: false,
+    forTrainingList: false,
+};
 
-// export const coursesSlice = createSlice({
-//     name: 'courses',
-//     initialState,
-//     reducers: {
-//         setCourses: ( state, action ) => {
-//             state.courses = action.payload;
-//         },
-//         setWorkouts: (state, action) => {
-//             state.playlist = action.payload;
-//         },
-//         setUsers: ( state, action ) => {
-//             state.playlist = action.payload;
-//         },
-//     }
-// })
+const appSlice = createSlice({
+	name: "user",
+	initialState,
+	reducers: {
+		setLogout: () => initialState,
+		setLogin: (state, { payload }) => {
+			return {
+				...state,
+				userId: payload.userId,
+				isAuthenticated: true,
+				email: payload.email,
+			};
+		},
+		setUserInfo: (state, { payload }) => ({
+			...state,
+			courses: payload.courses,
+		}),
+		setCurrentWorkout: (state, { payload }) => ({
+			...state,
+			currentWorkout: payload.currentWorkout,
+		}),
+		setEmail: (state, { payload }) => ({
+			...state,
+			email: payload.email,
+		}),
+        setMyprogress: (state, { payload }) => ({
+            ...state,
+            forProgress: payload.forProgress
+        }),
+        setTrainingList: (state, { payload }) => ({
+            ...state,
+            forTrainingList: payload.forTrainingList
+        }),
+    }
+});
 
-// export const { setCourses, setWorkouts, setUsers } = coursesSlice.actions;
+export const {
+	setLogout,
+	setLogin,
+	setUserInfo,
+	setCurrentWorkout,
+	setEmail,
+    setMyprogress,
+    setTrainingList
+} = appSlice.actions;
 
-// export default coursesSlice.reducer
+export default appSlice.reducer;

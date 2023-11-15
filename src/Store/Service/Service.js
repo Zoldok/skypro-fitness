@@ -56,4 +56,5 @@ export const Api = createApi({
   }),
 });
 
-export const { useGetAllCoursesQuery, useGetAllWorkoutsQuery, useGetUsersQuery } = Api;
+export const { useGetAllCoursesQuery, useGetCourseByNameQuery, useGetWorkoutByIdQuery, useGetUserQuery,
+ useAddNewUserMutation, useGetUserProgressQuery, useSetUserWorkoutCompletedMutation, useAddNewCourseMutation } = Api;
