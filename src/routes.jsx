@@ -4,6 +4,7 @@ import Main from './pages/Main/Main'
 import Acquaint from './pages/acquaint/acquaint'
 import AuthPage from './pages/Authpage/AuthPage'
 
+
 export default function AppRoutes() {
   return (
     <Routes>
