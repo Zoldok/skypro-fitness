@@ -10,15 +10,49 @@ export const Api = createApi({
     getAllCourses: builder.query({
       query: () => `courses.json`,
     }),
-    getAllWorkouts: builder.query({
-        query: () =>  `workouts.json`,
+    getCourseByName: builder.query({
+        query: (_id) => `courses/${_id}.json`,
     }),
-    getUsers: builder.query({
-        query: () => `users.json`,
+    getWorkoutById: builder.query({
+        query: (_id) =>  `workouts/${_id}.json`,
     }),
-    // getUsersWorkouts: builder.query({
-    //     query: () => 
-    // })
+    getUser: builder.query({
+        query: (name) => `users/${name}.json`,
+    }),
+    addNewUser: builder.mutation({ 
+        query: (body) => ({
+            url: `users/${body.name}.json`,
+            method: "POST",
+            body: body.data,
+        }),
+    }),
+    getUserProgress: builder.query({ 
+        query: (body) =>
+            `users/${body.name}/courses/${body.courseName}/workout/${body.workoutId}/exercises.json`,
+        providesTags: ["Progress"],
+    }),
+    setUserProgress: builder.mutation({ 
+        query: (body) => ({
+            url: `users/${body.userId}/courses/${body.courseName}/workouts/${body.workoutId}/exercises.json`,
+            method: "PATCH",
+            body: body.progress,
+        }),
+        invalidatesTags: ["Progress"],
+    }),
+    setUserWorkoutCompleted: builder.mutation({
+        query: (body) => ({ 
+            url: `users/${body.userId}/courses/${body.courseName}/workouts/${body.workoutId}.json`,
+            method: "PATCH",
+            body: body.completed,
+        }),
+    }),
+    addNewCourse: builder.mutation({
+        query: (body) => ({
+            url: `users/${body.userId}/courses/${body.courseName}.json`,
+            method: "PUT",
+            body: body.data,
+        }),
+    }),
   }),
 });
 
