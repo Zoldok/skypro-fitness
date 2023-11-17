@@ -1,13 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
-import { useState } from 'react'
-// import { SignupUser } from '../../components/api/api'
-// import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-// import { useUserDispatch } from '../../contex'
-// import { useLoginUserMutation } from '../../service/authApi'
-// import { setAuthorization } from '../../store/slices/authenticationSlice'
-// import { getToken, refreshToken } from '../../components/api/api'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
+import { useDispatch } from 'react-redux'
 import * as S from './AuthPageStyle'
+import { setLogin } from '../../Store/Slice/Slice'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -55,40 +56,37 @@ body {
 
 `
 export default function AuthPage({ isLoginMode = false }) {
-  // const [error, setError] = useState(null)
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
-
-  // const dispatch = useDispatch()
-  // // const userDispatch = useUserDispatch()
-  // const navigate = useNavigate()
-  // // const [LoginUser, { isLoading }] = useLoginUserMutation()
+  const [passwordMatchError, setPasswordMatchError] = useState(false)
+  const navigate = useNavigate()
 
   // const isValidateForm = async () => {
   //   const recExp = /^(?=.*[a-zA-Z])(?=.*\d).+/
   //   if (email === '' || password === '') {
-  //     setError('Укажите почту/пароль')
+  //     setPasswordMatchError('Укажите почту/пароль')
   //     return false
   //   }
   //   if (email.length < 5) {
-  //     setError('Слишком короткая почта или имя')
+  //     setPasswordMatchError('Слишком короткая почта или имя')
   //     return false
   //   }
   //   if (password !== repeatPassword) {
-  //     setError('Пароли не совпадают')
+  //     setPasswordMatchError('Пароли не совпадают')
   //     return false
   //   }
   //   if (password.length < 8 || repeatPassword.length < 8) {
-  //     setError('Пароль должен содержать более 4 символов')
+  //     setPasswordMatchError('Пароль должен содержать более 4 символов')
   //     return false
   //   }
   //   if (password.includes('123456')) {
-  //     setError('Пароль слишком распространен')
+  //     setPasswordMatchError('Пароль слишком распространен')
   //     return false
   //   }
   //   if (!recExp.test(password)) {
-  //     setError('Пароль должен состоять не только из цифр')
+  //     setPasswordMatchError('Пароль должен состоять не только из цифр')
   //     return false
   //   }
 
@@ -107,51 +105,44 @@ export default function AuthPage({ isLoginMode = false }) {
   //   return true
   // }
 
-  // const handleLogin = async () => {
-  //   const isValidLoginForm = await isValidateFormLogin()
-  //   if (isValidLoginForm) {
-  //     const response = await LoginUser({ email, password })
-  //     if (response?.error) {
-  //       setError(response.error?.data?.detail)
-  //       return
-  //     }
-  //     const user = response.data
+  const handleRegister = (event) => {
+    event.preventDefault()
+    const auth = getAuth()
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        navigate('/login')
+      })
+      .catch((error) => {
+        console.log('Ошибка регистрации:', error.message)
+      })
+  }
 
-  //     localStorage.setItem('user', JSON.stringify(user))
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    const auth = getAuth()
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userData) => {
+        const user = userData.user
+        console.log(user)
+        dispatch(
+          setLogin({
+            userId: user.uid,
+            email: user.email,
+          }),
+        )
+        localStorage.setItem('userId', user.uid)
+        localStorage.setItem('userEmail', user.email)
+        navigate('/profile')
+      })
+      .catch((error) => {
+        console.log(error.code)
+      })
+  }
 
-  //     const token = await getToken({ email, password })
-  //     dispatch(
-  //       setAuthorization({
-  //         access: token.access,
-  //         refresh: token.refresh,
-  //         user: user.username,
-  //       }),
-  //     )
-  //     const sessionRefreshToken = sessionStorage.getItem('refresh')
-  //     await refreshToken(sessionRefreshToken)
-  //     userDispatch({ type: 'setUser', payload: user })
-  //     navigate('/')
-  //   } else {
-  //     isValidateFormLogin()
-  //   }
-  // }
-
-  // const handleRegister = async (e) => {
-  //   e.preventDefault()
-  //   if (!isValidateForm()) return
-  //   try {
-  //     const user = await SignupUser({ email, password, username })
-
-  //     dispatch({ type: 'setUser', payload: user.username })
-  //     navigate('/signin')
-  //   } catch (error) {
-  //     setError('Пользователь уже занят')
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   setError(null)
-  // }, [isLoginMode, username, email, password, repeatPassword])
+  useEffect(() => {
+    setPasswordMatchError(null)
+  }, [isLoginMode, email, password, repeatPassword])
 
   return (
     <S.PageContainer>
@@ -193,11 +184,9 @@ export default function AuthPage({ isLoginMode = false }) {
                 }}
               />
             </S.Inputs>
-            {/* {error && <S.Error>{error}</S.Error>} */}
+            {passwordMatchError && <S.Error>{passwordMatchError}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton>
-                {/* {isLoading? 'Осуществляется регистрация' :
-              'Зарегистрироваться' */}
+              <S.PrimaryButton onClick={handleRegister}>
                 Зарегистрироваться
               </S.PrimaryButton>
             </S.Buttons>
@@ -224,13 +213,9 @@ export default function AuthPage({ isLoginMode = false }) {
                 }}
               />
             </S.Inputs>
-            {/* {error && <S.Error>{error}</S.Error>} */}
+            {passwordMatchError && <S.Error>{passwordMatchError}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton>
-                {/* // disabled={isLoading} onClick={handleLogin}> //{' '}
-              {isLoading ? 'Осуществляется вход' : 'Войти'} */}
-                Войти
-              </S.PrimaryButton>
+              <S.PrimaryButton onClick={handleLogin}>Войти</S.PrimaryButton>
               <Link to="/register">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
               </Link>

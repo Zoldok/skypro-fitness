@@ -1,6 +1,7 @@
 import * as S from './SidebarPersonal.styled'
 
 function SidebarLogin() {
+  const user = localStorage.getItem('userEmail')
   return (
     <S.SidebarPersonal>
       <S.SidebarIcon>
@@ -8,7 +9,7 @@ function SidebarLogin() {
           <use xlinkHref="img/icon/sprite.svg#logout" />
         </svg>
       </S.SidebarIcon>
-      <S.SidebarPersonalName>User Userovi4</S.SidebarPersonalName>
+      <S.SidebarPersonalName>{user}</S.SidebarPersonalName>
     </S.SidebarPersonal>
   )
 }
