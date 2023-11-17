@@ -1,4 +1,4 @@
-import { useGetAllCoursesQuery } from '../../Service/Service';
+import { useGetAllCoursesQuery } from '../../Store/Service/Service';
 import * as S from './Promo.styled'
 
 function PromoSection() {

@@ -1,17 +1,14 @@
-
-import { useGetAllCoursesQuery } from '../../Service/Service'
+import { useGetAllCoursesQuery } from '../../Store/Service/Service'
 import * as S from './acquaint.styled'
 import Loader from '../../components/Loader/Loader'
 
 export default function Acquaint() {
   const { data, isLoading } = useGetAllCoursesQuery()
-  console.log('данные',data);
-
+  console.log('данные', data)
 
   if (isLoading) {
-    return <Loader />; 
+    return <Loader />
   }
-
 
   return (
     <S.StyledPromo>
@@ -28,7 +25,7 @@ export default function Acquaint() {
       </S.CourseBlock>
       <S.AboutPages>Подойдет для вас, если:</S.AboutPages>
       <S.CoursReadings>
-         {data.ge5j9u.accordance.map((item, index) => (
+        {data.ge5j9u.accordance.map((item, index) => (
           <div key={item}>
             <S.LogoImage2 src={`../../../img/${index + 1}.svg`} alt="logo" />
             <S.AboutPages2>{item}</S.AboutPages2>
