@@ -46,3 +46,19 @@ export const BigButton = styled.button`
 export const BigButtonMain = styled(BigButton)`
   margin-top: 34px;
 `;
+
+export const Block = styled.img`
+  width: 360px;
+  height: 480px;
+`
+
+
+export const CardsSection = styled.div`
+    // width: 1110px;
+    height: 980px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 24px;
+    margin-top: 10px;
+`

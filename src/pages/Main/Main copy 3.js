@@ -19,21 +19,23 @@ export default function Main() {
     <S.StyledMain>
       <HeaderMain />
       <PromoSection />
-      <S.CardsSection >
+      {/* <CardsSection /> */}
+      <div >
         {courseArray.map((course) => {
            console.log("Current Course:", course)
            return (
           <Link to={`/acquaint/${course.name}`} key={course.id}>
             <div>
+            {/* <h3>{course.title}</h3> */}
               <img
-                src={`../../../img/course-banner/${course.name}.svg`}
+                src={`../../../img/course-banner/${course.name}.png`}
                 alt={course.title}
                 style={{ width: '360px', height: '480px' }}
               />
             </div>
           </Link>)
 })}
-      </S.CardsSection>
+      </div>
       <S.footerMain>
         <S.BigButtonMain>Наверх</S.BigButtonMain>
       </S.footerMain>
