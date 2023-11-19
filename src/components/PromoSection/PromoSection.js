@@ -1,10 +1,9 @@
-import { useGetAllCoursesQuery } from '../../Store/Service/Service';
+import { useGetAllCoursesQuery } from '../../Store/Service/Service'
 import * as S from './Promo.styled'
 
 function PromoSection() {
-
   const { data } = useGetAllCoursesQuery()
-  console.log('данные',data);
+  console.log('данные', data)
   return (
     <S.Promo>
       <S.ContentWrapper>
@@ -21,4 +20,3 @@ function PromoSection() {
 }
 
 export default PromoSection
-

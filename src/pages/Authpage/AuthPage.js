@@ -63,81 +63,109 @@ export default function AuthPage({ isLoginMode = false }) {
   const [passwordMatchError, setPasswordMatchError] = useState(false)
   const navigate = useNavigate()
 
-  // const isValidateForm = async () => {
-  //   const recExp = /^(?=.*[a-zA-Z])(?=.*\d).+/
-  //   if (email === '' || password === '') {
-  //     setPasswordMatchError('Укажите почту/пароль')
-  //     return false
-  //   }
-  //   if (email.length < 5) {
-  //     setPasswordMatchError('Слишком короткая почта или имя')
-  //     return false
-  //   }
-  //   if (password !== repeatPassword) {
-  //     setPasswordMatchError('Пароли не совпадают')
-  //     return false
-  //   }
-  //   if (password.length < 8 || repeatPassword.length < 8) {
-  //     setPasswordMatchError('Пароль должен содержать более 4 символов')
-  //     return false
-  //   }
-  //   if (password.includes('123456')) {
-  //     setPasswordMatchError('Пароль слишком распространен')
-  //     return false
-  //   }
-  //   if (!recExp.test(password)) {
-  //     setPasswordMatchError('Пароль должен состоять не только из цифр')
-  //     return false
-  //   }
+  const isValidateForm = async () => {
+    const recExp = /^(?=.*[a-zA-Z])(?=.*\d).+/
+    if (email === '' || password === '') {
+      setPasswordMatchError('Укажите почту/пароль')
+      return false
+    }
+    if (email.length < 5) {
+      setPasswordMatchError('Слишком короткая почта или имя')
+      return false
+    }
+    if (password !== repeatPassword) {
+      setPasswordMatchError('Пароли не совпадают')
+      return false
+    }
+    if (password.length < 8 || repeatPassword.length < 8) {
+      setPasswordMatchError('Пароль должен содержать более 4 символов')
+      return false
+    }
+    if (password.includes('123456')) {
+      setPasswordMatchError('Пароль слишком распространен')
+      return false
+    }
+    if (!recExp.test(password)) {
+      setPasswordMatchError('Пароль должен состоять не только из цифр')
+      return false
+    }
 
-  //   return true
-  // }
+    return true
+  }
 
-  // const isValidateFormLogin = () => {
-  //   if (email === '' || password === '') {
-  //     setError('Укажите почту/пароль')
-  //     return false
-  //   }
-  //   if (email.length < 5) {
-  //     setError('Слишком короткая почта или имя')
-  //     return false
-  //   }
-  //   return true
-  // }
+  const isValidateFormLogin = () => {
+    if (email === '' || password === '') {
+      setPasswordMatchError('Укажите почту/пароль')
+      return false
+    }
+    if (email.length < 5) {
+      setPasswordMatchError('Слишком короткая почта или имя')
+      return false
+    }
+    return true
+  }
 
   const handleRegister = (event) => {
     event.preventDefault()
     const auth = getAuth()
+    if (!isValidateForm()) return
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
+        console.log(user)
         navigate('/login')
       })
       .catch((error) => {
         console.log('Ошибка регистрации:', error.message)
+        setPasswordMatchError('Пользователь уже занят')
       })
   }
 
   const handleLogin = async (event) => {
     event.preventDefault()
     const auth = getAuth()
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userData) => {
-        const user = userData.user
-        console.log(user)
-        dispatch(
-          setLogin({
-            userId: user.uid,
-            email: user.email,
-          }),
-        )
-        localStorage.setItem('userId', user.uid)
-        localStorage.setItem('userEmail', user.email)
-        navigate('/profile')
-      })
-      .catch((error) => {
-        console.log(error.code)
-      })
+    const isValidLoginForm = await isValidateFormLogin()
+    if (isValidLoginForm) {
+      await signInWithEmailAndPassword(auth, email, password)
+        .then((userData) => {
+          const user = userData.user
+          console.log(user)
+          dispatch(
+            setLogin({
+              userId: user.uid,
+              email: user.email,
+            }),
+          )
+          localStorage.setItem('userId', user.uid)
+          localStorage.setItem('userEmail', user.email)
+          navigate('/profile')
+        })
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          if (errorCode === 'auth/wrong-password') {
+            Toast.show({
+              text: `${Strings.ST30}`,
+              position: 'bottom',
+              buttonText: `${Strings.ST33}`,
+            })
+          } else if (errorCode === 'auth/user-not-found') {
+            Toast.show({
+              text: `${Strings.ST31}`,
+              position: 'bottom',
+              buttonText: `${Strings.ST33}`,
+            })
+          } else {
+            Toast.show({
+              text: `${Strings.ST32}`,
+              position: 'bottom',
+              buttonText: `${Strings.ST33}`,
+            })
+          }
+        })
+    } else {
+      isValidateFormLogin()
+    }
   }
 
   useEffect(() => {
