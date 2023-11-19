@@ -128,7 +128,7 @@ export const AboutPages2 = styled.h1`
 export const Directions = styled.div`
 display: flex;
 flex-wrap: wrap; /* Allow items to wrap to the next line */
-  
+justify-content: space-between;
 `
 export const DirectionsAbout = styled.div`
 color: #000;

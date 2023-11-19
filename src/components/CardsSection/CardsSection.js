@@ -1,15 +1,14 @@
-import * as S from './CardsSection.styled'
+import { useCourseInfo } from './CoursDate'
+import CardsSectionAll from './CourseList'
 
- function CardsSection() {
-    return(
-        <S.CardsSection>
-            <S.Block src="../../img/yogaCard.png" alt="logo" />
-            <S.Block src="../../img/stretchingCard.png" alt="logo" />
-            <S.BlockN src="../../img/danceFitnessCard.png" alt="logo" />
-            <S.BlockN src="../../img/stepAerobicsCard.png" alt="logo" />
-            <S.BlockN src="../../img/bodyflexСard.png" alt="logo" />
-        </S.CardsSection>
-    )
- }
+function CardsSection() {
+  const { COURSEINFO } = useCourseInfo()
 
- export default CardsSection
+  return (
+    <div>
+      <CardsSectionAll coursedata={COURSEINFO} />
+    </div>
+  )
+}
+
+export default CardsSection
