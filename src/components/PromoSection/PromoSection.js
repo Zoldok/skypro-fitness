@@ -1,8 +1,7 @@
-import { useGetAllCoursesQuery } from '../../Store/Service/Service';
+import { useGetAllCoursesQuery } from '../../Store/Service/Service'
 import * as S from './Promo.styled'
 
 function PromoSection() {
-
   const { data } = useGetAllCoursesQuery()
   return (
     <S.Promo>
@@ -20,4 +19,3 @@ function PromoSection() {
 }
 
 export default PromoSection
-
