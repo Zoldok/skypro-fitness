@@ -21,6 +21,22 @@ export const StyledSection = styled.section`
 export const Styled = styled.section`
 
 `
+export const TitleContent = styled.div`
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  margin-bottom: 40px;
+`
+export const Content = styled.h2`
+  color: var(--colot-text);
+  font-size: 48px;
+  line-height: 56px;
+`
+export const TitleTraining = styled.p`
+  color: #000;
+  font-size: 32px;
+  line-height: 40px;
+`
 export const Footer = styled.footer`
     display: flex;
     justify-content: space-between;

@@ -15,10 +15,14 @@ export default function TrainingPage() {
     return (
         <S.StyledSection>
           <Header />
+          <S.TitleContent>
+            <S.Content>Название тренировки</S.Content>
+            <S.TitleTraining>{data.name}</S.TitleTraining>
+          </S.TitleContent>
           <Video videoUrl={data.url} />
             <S.Footer>
                 <Exercises exercises={data.exercises}/>
-                <Progress/>
+                <Progress data={data}/>
             </S.Footer>
             {/* <Myprogress /> */}
         </S.StyledSection>
