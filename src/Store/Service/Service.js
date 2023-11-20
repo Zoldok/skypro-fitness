@@ -14,7 +14,9 @@ export const Api = createApi({
         query: (_id) => `courses/${_id}.json`,
     }),
     getWorkoutById: builder.query({
-        query: (_id) =>  `workouts/${_id}.json`,
+        query: (_id) =>  ({
+            url: `workouts/${_id}.json`,
+        }),
     }),
     getUser: builder.query({
         query: (name) => `users/${name}.json`,
@@ -26,10 +28,13 @@ export const Api = createApi({
             body: body.data,
         }),
     }),
+    getWorkout: builder.query({ 
+        query: (body) =>
+            `users/${body.name}/courses/${body.courseName}/workouts/${body.workoutId}/url.json`,
+    }),
     getUserProgress: builder.query({ 
         query: (body) =>
             `users/${body.name}/courses/${body.courseName}/workout/${body.workoutId}/exercises.json`,
-        providesTags: ["Progress"],
     }),
     setUserProgress: builder.mutation({ 
         query: (body) => ({
@@ -37,7 +42,6 @@ export const Api = createApi({
             method: "PATCH",
             body: body.progress,
         }),
-        invalidatesTags: ["Progress"],
     }),
     setUserWorkoutCompleted: builder.mutation({
         query: (body) => ({ 
