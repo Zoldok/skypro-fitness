@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './MyProgressStyle'
+import { useEffect, useRef, useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -46,34 +47,35 @@ body {
 }
 
 `
-export default function MyProgress() {
+export default function MyProgress({ onClose, data, setIsModalOkOpen }) {
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (!modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [onClose]);
+
   return (
-    <S.Wrapper>
+    <S.Wrapper >
       <GlobalStyle />
-      <S.BlockProgress>
+      <S.BlockProgress ref={modalRef} >
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
-
-        <S.BlockProgressBox>
-          <S.BlockProgressBoxText>
-            Сколько раз вы сделали наклоны вперед?
-          </S.BlockProgressBoxText>
-          <S.Inputs type="text" placeholder="введите значение" />
-        </S.BlockProgressBox>
-
-        <S.BlockProgressBox>
-          <S.BlockProgressBoxText>
-            Сколько раз вы сделали наклоны назад?
-          </S.BlockProgressBoxText>
-          <S.Inputs type="text" placeholder="введите значение" />
-        </S.BlockProgressBox>
-
-        <S.BlockProgressBox>
-          <S.BlockProgressBoxText>
-            Сколько раз вы сделали поднятие ног, согнутых в коленях?
-          </S.BlockProgressBoxText>
-          <S.Inputs type="text" placeholder="введите значение" />
-        </S.BlockProgressBox>
-        <S.Button>Отправить</S.Button>
+            {Object.values(data?.exercises).map((exercise, index) => (
+                <S.BlockProgressBox key={index}>
+                    <S.BlockProgressBoxText>Сколько вы сделали {exercise.question}</S.BlockProgressBoxText>  
+                    <S.Inputs type="text" placeholder="введите значение" />
+                </S.BlockProgressBox>
+              ))}
+        <S.Button onClick={() => setIsModalOkOpen(true)} >Отправить</S.Button>
       </S.BlockProgress>
     </S.Wrapper>
   )

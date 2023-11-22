@@ -51,28 +51,14 @@ export default function Progress({data}) {
     <S.Wrapper>
       <GlobalStyle />
       <S.Content>
-        <S.ContentTitle>Мой прогресс по тренировке: {data.name}</S.ContentTitle>
+        <S.ContentTitle>Мой прогресс по тренировке </S.ContentTitle>
         <S.ContentProgress>
-        {Object.values(data.exercises).map((exercise, index) => (
-                <S.List key={index}>
-                    <S.ContentProgressText>{exercise.name}</S.ContentProgressText>  
-                    <S.ContentProgressScaleOne max="100" value="45" /> 
-                </S.List>
-                ))}
-          {/* <S.List>
-            <S.ContentProgressText>Наклоны вперед</S.ContentProgressText>
-            <S.ContentProgressScaleOne max="100" value="45" />
-          </S.List>
-          <S.List>
-            <S.ContentProgressText>Наклоны назад</S.ContentProgressText>
-            <S.ContentProgressScaleTwo max="100" value="45" />
-          </S.List>
-          <S.List>
-            <S.ContentProgressText>
-              Поднятие ног, согнутых в коленях
-            </S.ContentProgressText>
-            <S.ContentProgressScaleThree max="100" value="45" />
-          </S.List> */}
+          {Object.values(data?.exercises).map((exercise, index) => (
+            <S.List key={index}>
+              <S.ContentProgressText>{exercise.name}</S.ContentProgressText>  
+              <S.ContentProgressScaleOne max="100" value="45" className={`progress-${Math.floor(Math.random() * 3) + 1}`} />
+            </S.List>
+          ))}
         </S.ContentProgress>
       </S.Content>
     </S.Wrapper>

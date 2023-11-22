@@ -1,6 +1,6 @@
 import * as S from './Exercises.styled'
 
-export default function Exercises({exercises}) {
+export default function Exercises({exercises, setIsModalOpen }) {
     return (
         <S.ExercisesDiv>
             <S.ExercisesTitle>Упражнения</S.ExercisesTitle>
@@ -12,7 +12,7 @@ export default function Exercises({exercises}) {
                 </S.ExercisesLi>
                 ))}
             </S.ExercisesUl>
-            <S.ExercisesButton>Заполнить свой прогресс</S.ExercisesButton>
+            <S.ExercisesButton onClick={() => setIsModalOpen(true)}>Заполнить свой прогресс</S.ExercisesButton>
         </S.ExercisesDiv>
     )
 }
