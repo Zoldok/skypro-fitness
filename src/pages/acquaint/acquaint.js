@@ -1,16 +1,24 @@
 import * as S from './acquaint.styled'
+import React, { useState } from 'react';
+import ModalComponent from '../../components/ModalWindow/recording';
 import Loader from '../../components/Loader/Loader'
 // import { useUser } from '../../context';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useCourseInfo } from '../../components/CardsSection/CoursDate'
 
 export default function Acquaint() {
   const { COURSEINFO, isLoading, courseData } = useCourseInfo()
-  // console.log('данные', data)
-  // const user = useUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
   const { courseName } = useParams()
   console.log('courseName:', courseData)
   console.log(typeof courseName)
+
+
+  const navigate = useNavigate()
+  const goHome = () => {
+  navigate('/')}
 
   if (isLoading) {
     return <Loader />
@@ -24,7 +32,7 @@ export default function Acquaint() {
   }
   return (
     <S.StyledPromo>
-      <S.NavLogo>
+      <S.NavLogo onClick={goHome}>
         <S.LogoImage src="../../../img/logo.png" alt="logo" />
       </S.NavLogo>
       <S.CourseBlock>
@@ -65,7 +73,8 @@ export default function Acquaint() {
           выбором направления и тренера, с которым тренировки принесут здоровье
           и радость!
         </S.DirectionsAboutCourse>
-        <S.ProfileButton>Записаться</S.ProfileButton>
+        <S.ProfileButton onClick={() => setIsModalOpen(true)}>Записаться</S.ProfileButton>
+        {isModalOpen && <ModalComponent onClose={() => setIsModalOpen(false)} />}
 
         <S.StyleMyCoursBlock2>
           <S.BlockTrainPhone src="../../img/application.svg" alt="logo" />
