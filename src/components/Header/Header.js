@@ -1,10 +1,16 @@
+import { useNavigate } from 'react-router-dom'
 import SidebarLogin from '../SidebarUser/SidebarPersonal'
 import * as S from './Header.styles'
 
 function Header() {
+  const navigate = useNavigate()
+  const goHome = () => {
+  navigate('/')
+  }
+
   return (
     <S.HeaderStyle>
-      <S.NavLogo>
+      <S.NavLogo onClick={goHome}>
         <S.LogoImage src="../../../img/logo.png" alt="logo" />
       </S.NavLogo>
       <SidebarLogin />
