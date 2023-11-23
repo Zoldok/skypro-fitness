@@ -1,5 +1,40 @@
 import styled from 'styled-components'
 
+// export const PageContainer = styled.div`
+//   max-width: 100%;
+//   height: 100vh;
+//   background-color: rgba(0, 0, 0, 0.85);
+// `
+
+export const ModalForm = styled.div`
+  width: 50%;
+  height: 50%;
+`
+export const ModalInput = styled.input`
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d0cece;
+  padding: 8px 1px;
+
+  &::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    color: #d0cece;
+  }
+`
+export const PrimaryButton = styled.button`
+  color: #ffffff;
+  background-color: #580ea2;
+  &:hover {
+    background-color: #3f007d;
+  }
+
+  &:active {
+    background-color: #271a58;
+  }
+`
 export const HeaderStyleMyProfile = styled.div`
   display: flex;
   flex-direction: column;

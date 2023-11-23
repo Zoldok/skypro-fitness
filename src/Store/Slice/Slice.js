@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  isAuthenticated: false,
+  // isAuthenticated: false,
   userId: null,
   courses: [],
   currentWorkout: null,
-  email: null,
+  email: '',
   forProgress: false,
   forTrainingList: false,
 }
@@ -18,7 +18,7 @@ const appSlice = createSlice({
     setLogin: (state, { payload }) => ({
       ...state,
       userId: payload.userId,
-      isAuthenticated: true,
+      // isAuthenticated: true,
       email: payload.email,
     }),
     setUserInfo: (state, { payload }) => ({
@@ -28,6 +28,10 @@ const appSlice = createSlice({
     setCurrentWorkout: (state, { payload }) => ({
       ...state,
       currentWorkout: payload.currentWorkout,
+    }),
+    setTrainingList: (state, { payload }) => ({
+      ...state,
+      forTrainingList: payload.forTrainingList,
     }),
     setEmail: (state, { payload }) => ({
       ...state,
