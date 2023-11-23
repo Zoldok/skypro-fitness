@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   // isAuthenticated: false,
   userId: null,
-  courses: null,
+  courses: [],
   currentWorkout: null,
   email: '',
   forProgress: false,

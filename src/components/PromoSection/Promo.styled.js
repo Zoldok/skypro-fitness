@@ -28,6 +28,7 @@ export const PromoTitle = styled.h1`
   line-height: 1;
   letter-spacing: -1.169px;
   margin: 0;
+  margin-bottom: 52px;
 
   @media (max-width: 1161px) {
     max-width: 650px;

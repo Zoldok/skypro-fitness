@@ -3,7 +3,6 @@ import * as S from './Promo.styled'
 
 function PromoSection() {
   const { data } = useGetAllCoursesQuery()
-  console.log('данные', data)
   return (
     <S.Promo>
       <S.ContentWrapper>

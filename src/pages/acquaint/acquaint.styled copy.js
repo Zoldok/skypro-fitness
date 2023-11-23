@@ -9,7 +9,7 @@ export const StyledPromo = styled.section`
 export const NavLogo = styled.div`
   width: 113.33px;
   height: 43px;
-  padding-top: 30px;
+  padding: 13px 0 13px 0;
   background-color: transparent;
   margin-bottom: 20px;
 `
@@ -128,7 +128,7 @@ export const AboutPages2 = styled.h1`
 export const Directions = styled.div`
 display: flex;
 flex-wrap: wrap; /* Allow items to wrap to the next line */
-  
+justify-content: space-between;
 `
 export const DirectionsAbout = styled.div`
 color: #000;
