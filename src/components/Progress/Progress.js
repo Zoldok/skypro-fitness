@@ -53,7 +53,7 @@ export default function Progress({data}) {
       <S.Content>
         <S.ContentTitle>Мой прогресс по тренировке </S.ContentTitle>
         <S.ContentProgress>
-          {Object.values(data?.exercises).map((exercise, index) => (
+          {Object.values(data.exercises).map((exercise, index) => (
             <S.List key={index}>
               <S.ContentProgressText>{exercise.name}</S.ContentProgressText>  
               <S.ContentProgressScaleOne max="100" value="45" className={`progress-${Math.floor(Math.random() * 3) + 1}`} />

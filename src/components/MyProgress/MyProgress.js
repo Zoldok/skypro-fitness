@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './MyProgressStyle'
-import { useEffect, useRef, useState } from 'react';
+import { useAddUserProgressMutation, useGetUserQuery } from '../../Store/Service/Service';
+import { useState } from 'react';
+import { useParams } from 'react-router';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -47,35 +49,40 @@ body {
 }
 
 `
-export default function MyProgress({ onClose, data, setIsModalOkOpen }) {
-  const modalRef = useRef(null);
+export default function MyProgress({ handleClickOutside, data, setIsModalOpen }) {
+ 
+  const [userProgress] = useAddUserProgressMutation();
+  console.log(userProgress)
+  const [userValues, setUserValues] = useState([]);
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (!modalRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
+  const handleInputChange = (value, index) => {
+    const newValues = [...userValues];
+    newValues[index] = value;
+    setUserValues(newValues);
+  };
 
-    document.addEventListener('mousedown', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [onClose]);
+  const handleClickSend = () => {
+    userProgress({ variables: { progress: userValues } });
+    setIsModalOpen(true); // Перенесли вызов setIsModalOpen(true) в эту функцию
+  };
 
   return (
-    <S.Wrapper >
+    <S.Wrapper onClick={handleClickOutside}>
       <GlobalStyle />
-      <S.BlockProgress ref={modalRef} >
+      <S.BlockProgress >
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
-            {Object.values(data?.exercises).map((exercise, index) => (
+            {Object.values(data.exercises).map((exercise, index) => (
                 <S.BlockProgressBox key={index}>
                     <S.BlockProgressBoxText>Сколько вы сделали {exercise.question}</S.BlockProgressBoxText>  
-                    <S.Inputs type="text" placeholder="введите значение" />
+                    <S.Inputs 
+                      type="text" 
+                      value={userValues[index] || ""} 
+                      onChange={(event) => handleInputChange(event.target.value, index)} 
+                      placeholder="введите значение" 
+                  />
                 </S.BlockProgressBox>
               ))}
-        <S.Button onClick={() => setIsModalOkOpen(true)} >Отправить</S.Button>
+        <S.Button onClick={handleClickSend} >Отправить</S.Button>
       </S.BlockProgress>
     </S.Wrapper>
   )

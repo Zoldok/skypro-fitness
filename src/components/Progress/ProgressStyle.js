@@ -65,53 +65,6 @@ width: 240px;
   border-radius: 22px 0 0 22px;
 }
 `
-export const ContentProgressScaleTwo = styled.progress`
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  border: 0;
-  border-radius: 22px;
-  background-color: #ff6d00;
-  height: 35px;
-  width: 240px;
-  &::-webkit-progress-bar {
-    background-color: #fff2e0;
-    border-radius: 22px;
-  }
-  &::-webkit-progress-value {
-    background-color: #ff6d00;
-    border-radius: 22px 0 0 22px;
-  }
-  &::-moz-progress-bar {
-    background-color: #565eef;
-    border-radius: 22px 0 0 22px;
-  }
-`
-export const ContentProgressScaleThree = styled.progress`
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  border: 0;
-  border-radius: 22px;
-  background-color: #9a48f1;
-  height: 35px;
-  width: 240px;
-  &::-webkit-progress-bar {
-    background-color: #f9ebff;
-    border-radius: 22px;
-  }
-  &::-webkit-progress-value {
-    background-color: #9a48f1;
-    border-radius: 22px 0 0 22px;
-  }
-  &::-moz-progress-bar {
-    background-color: #9a48f1;
-    border-radius: 22px 0 0 22px;
-  }
-`
-
 export const List = styled.div`
   display: flex;
   justify-content: space-around;

@@ -1,21 +1,24 @@
-import { useNavigate, useParams } from 'react-router'
-import { useGetWorkoutByIdQuery, useSetUserWorkoutCompletedMutation } from '../../Store/Service/Service'
+import { useParams } from 'react-router'
+import { useGetUserQuery, useGetWorkoutByIdQuery, useSetUserWorkoutCompletedMutation } from '../../Store/Service/Service'
 import Exercises from '../../components/Exercises/Exercises'
 import Header from '../../components/Header/Header'
 import Video from '../../components/Video/Video'
 import * as S from './training.styled'
 import Progress from '../../components/Progress/Progress'
-import { useState } from 'react'
+import {  useState } from 'react'
 import MyProgress from '../../components/MyProgress/MyProgress'
-import SetProgress from '../../components/SetProgress/SetProgres'
 
 export default function TrainingPage() {
-    const { id } = useParams()
-    const { data, isLoading } = useGetWorkoutByIdQuery(id)
-    if(isLoading) return <div>Идет загрузка</div>
-   
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isModalOkOpen, setIsModalOkOpen] = useState(false);
+    const userId = localStorage.getItem('userId')
+    console.log(userId)
+    const { data: userData, isLoading: isLoading1 } = useGetUserQuery(userId)
+    console.log(userData)
+  const { id } = useParams();
+  const { data, isLoading } = useGetWorkoutByIdQuery(id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+if(isLoading || isLoading1) return <div>Идет загрузка</div>
+
     return (
         <S.StyledSection >
           <Header />
@@ -28,8 +31,11 @@ export default function TrainingPage() {
                 <Exercises exercises={data.exercises} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
                 <Progress data={data}/>
             </S.Footer>
-            {isModalOpen && <MyProgress data={data} onClose={() => setIsModalOpen(false)} setIsModalOkOpen={setIsModalOkOpen}/>}
-            {isModalOkOpen && <SetProgress onClose={() => setIsModalOkOpen(false)} />}
+            {isModalOpen && (
+    
+        <MyProgress data={data} setIsModalOpen={setIsModalOpen}/>
+    )}
+            {/* <SetProgress /> */}
         </S.StyledSection>
       )
 }

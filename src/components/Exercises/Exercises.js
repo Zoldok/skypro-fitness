@@ -1,6 +1,7 @@
 import * as S from './Exercises.styled'
 
 export default function Exercises({exercises, setIsModalOpen }) {
+    // запрос к апи упражнений. В цикле получить по id упражнения. Посмотреть метод массива передачи id
     return (
         <S.ExercisesDiv>
             <S.ExercisesTitle>Упражнения</S.ExercisesTitle>
