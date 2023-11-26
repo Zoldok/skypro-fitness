@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom'
 
 const CardsSectionAll = ({ coursedata }) => {
   if (!coursedata) {
-    return <p>Loading...</p>
+    return <p>тут прелоадер</p>
   }
 
   return (
     <S.CardsSection>
       {coursedata.map((course) => {
-        console.log('Current Course:', course)
+        // console.log('Current Course:', course)
         return (
           <Link
             to={`/acquaint/${course.id}`}
             key={course.id}
-            onClick={() => setSelectedCourse(course)}
+            // onClick={() => setSelectedCourse(course)}
           >
             <S.DivCard>
               <S.CourseBlockText>{course.name}</S.CourseBlockText>
