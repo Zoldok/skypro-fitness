@@ -1,8 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './MyProgressStyle'
-import { useAddUserProgressMutation, useGetUserQuery } from '../../Store/Service/Service';
+import { useAddUserProgressMutation, useGetExercisesByIdQuery } from '../../Store/Service/Service';
 import { useState } from 'react';
-import { useParams } from 'react-router';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -49,21 +48,33 @@ body {
 }
 
 `
-export default function MyProgress({ handleClickOutside, data, setIsModalOpen }) {
- 
-  const [userProgress] = useAddUserProgressMutation();
-  console.log(userProgress)
-  const [userValues, setUserValues] = useState([]);
+export default function MyProgress({ handleClickOutside, exercises, setIsModalOpen, setProgress }) {
+  const { data, isLoading } = useGetExercisesByIdQuery()
+
+  const filteredExercises = {};
+    for (const key in data) {
+      if (exercises.includes(key)) {
+          filteredExercises[key] = data[key];
+      }
+    }
+  
+  if(isLoading) return <div>pfuheprf</div>
+
+  const [userValues, setUserValues] = useState(Object.values(filteredExercises).map(() => ""));
+
 
   const handleInputChange = (value, index) => {
     const newValues = [...userValues];
-    newValues[index] = value;
+    newValues[index] = Number(value);
     setUserValues(newValues);
   };
 
   const handleClickSend = () => {
-    userProgress({ variables: { progress: userValues } });
-    setIsModalOpen(true); // Перенесли вызов setIsModalOpen(true) в эту функцию
+    const ProgressArray = Object.values(filteredExercises).map((exercise, index) => {
+      return {id: exercise._id, number_of_repetitions: userValues[index]}
+    })
+    setProgress(ProgressArray);
+    setIsModalOpen(false);
   };
 
   return (
@@ -71,14 +82,14 @@ export default function MyProgress({ handleClickOutside, data, setIsModalOpen })
       <GlobalStyle />
       <S.BlockProgress >
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
-            {Object.values(data.exercises).map((exercise, index) => (
+            {Object.values(filteredExercises).map((exercise, index) => (
                 <S.BlockProgressBox key={index}>
-                    <S.BlockProgressBoxText>Сколько вы сделали {exercise.question}</S.BlockProgressBoxText>  
+                    <S.BlockProgressBoxText>Сколько вы сделали: {exercise.name}</S.BlockProgressBoxText>  
                     <S.Inputs 
-                      type="text" 
-                      value={userValues[index] || ""} 
+                      type={"number"}
+                      placeholder={"Введите значение"}
+                      value={userValues[index]} 
                       onChange={(event) => handleInputChange(event.target.value, index)} 
-                      placeholder="введите значение" 
                   />
                 </S.BlockProgressBox>
               ))}

@@ -28,8 +28,8 @@ export const Api = createApi({
     }),
     addNewUser: builder.mutation({ 
         query: (body) => ({
-            url: `users/${body.name}.json`,
-            method: "POST",
+            url: `users/${body.id}.json`,
+            method: "PUT",
             body: body.data,
         }),
     }),
@@ -38,12 +38,12 @@ export const Api = createApi({
             `users/${body.name}/courses/${body.courseName}/workouts/${body.workoutId}/url.json`,
     }),
     getUserProgress: builder.query({ 
-        query: (body) =>
-            `users/${body.name}/courses/${body.courseName}/workout/${body.workoutId}/progress.json`,
+        query: (_id) =>
+            `users/${_id}/progress.json`,
     }),
     addUserProgress: builder.mutation({ 
-        query: (body) => ({
-            url: `users/${body.name}/progress.json`,
+        query: (_id) => ({
+            url: `users/${_id}/progress.json`,
             method: "POST",
             body: body.progress,
         }),

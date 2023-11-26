@@ -1,29 +1,17 @@
-import { useEffect } from 'react';
 import { useGetExercisesByIdQuery } from '../../Store/Service/Service'
 import * as S from './Exercises.styled'
 
 export default function Exercises({exercises, setIsModalOpen }) {
     const { data, isLoading } = useGetExercisesByIdQuery()
-    console.log(exercises)
-    console.log(data)
-//    В цикле получить по id упражнения
-    // useEffect(() => {
-    //     for (const key in data) {
-    //         const exerciseKey = data[key]; 
-    //         if (exercises.includes(exerciseKey)) {
-    //           console.log(exerciseKey); 
-    //         }
-    //       }
-    //   }, [exercises, data]);
-        const filteredExercises = {};
-    for (const key in data) {
-    if (exercises.includes(key)) {
-        filteredExercises[key] = data[key];
-    }
-    }
-    console.log(filteredExercises);
 
-      if(isLoading) return <div>pfuheprf</div>
+    const filteredExercises = {};
+    for (const key in data) {
+        if (exercises.includes(key)) {
+            filteredExercises[key] = data[key];
+        }
+    }
+
+    if(isLoading) return <div>идет загрузка</div>
     return (
         <S.ExercisesDiv>
             <S.ExercisesTitle>Упражнения</S.ExercisesTitle>

@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './ProgressStyle'
+import { useGetExercisesByIdQuery } from '../../Store/Service/Service'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -46,19 +47,43 @@ body {
 }
 
 `
-export default function Progress({data}) {
+export default function Progress({ userProgress }) {
+  const { data, isLoading } = useGetExercisesByIdQuery() // TODO: получать только нужные упражнения
+
+  if (isLoading) return <div>идет загузка...</div>
+
+  const progress = []
+  userProgress.forEach((p) => {
+    let updatedUserProgress = { ...p }
+    if (Object.keys(data).includes(p.exercise)) {
+      updatedUserProgress.name = data[p.exercise].name
+    }
+    progress.push(updatedUserProgress)
+  })
+
+
   return (
     <S.Wrapper>
       <GlobalStyle />
       <S.Content>
         <S.ContentTitle>Мой прогресс по тренировке </S.ContentTitle>
         <S.ContentProgress>
-          {Object.values(data.exercises).map((exercise, index) => (
-            <S.List key={index}>
-              <S.ContentProgressText>{exercise.name}</S.ContentProgressText>  
-              <S.ContentProgressScaleOne max="100" value="45" className={`progress-${Math.floor(Math.random() * 3) + 1}`} />
-            </S.List>
-          ))}
+          {progress.map((exercise, index) => {
+            const userP = exercise.number_of_repetitions
+            const targetP = data[exercise.exercise].number_of_repetitions
+            const percent = Math.round((userP / targetP) * 100);
+            console.log(percent)
+            return (
+              <S.List key={index}>
+                <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
+                <S.ContentProgressScaleOne
+                  max="100"
+                  value={percent}
+                  className={`progress-${Math.floor(Math.random() * 3) + 1}`}
+                />
+              </S.List>
+            )
+          })}
         </S.ContentProgress>
       </S.Content>
     </S.Wrapper>
