@@ -1,6 +1,6 @@
 import * as S from './SetProgressStyle'
 
-export default function SetProgress() {
+export default function PushNotice() {
 
   return (
     <S.Wrapper>

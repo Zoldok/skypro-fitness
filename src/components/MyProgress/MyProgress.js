@@ -55,12 +55,13 @@ export default function MyProgress({ handleClickOutside, exercises, setIsModalOp
     for (const key in data) {
       if (exercises.includes(key)) {
           filteredExercises[key] = data[key];
+        console.log(filteredExercises)
       }
     }
   
   if(isLoading) return <div>pfuheprf</div>
 
-  const [userValues, setUserValues] = useState(Object.values(filteredExercises).map(() => ""));
+  const [userValues, setUserValues] = useState(Object.values(filteredExercises).map(() => 0));
 
 
   const handleInputChange = (value, index) => {
@@ -87,7 +88,6 @@ export default function MyProgress({ handleClickOutside, exercises, setIsModalOp
                     <S.BlockProgressBoxText>Сколько вы сделали: {exercise.name}</S.BlockProgressBoxText>  
                     <S.Inputs 
                       type={"number"}
-                      placeholder={"Введите значение"}
                       value={userValues[index]} 
                       onChange={(event) => handleInputChange(event.target.value, index)} 
                   />

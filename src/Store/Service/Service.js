@@ -21,6 +21,9 @@ export const Api = createApi({
     getExercisesById: builder.query({
         query: () =>  `exercise.json`,
     }),
+    getExercises: builder.query({
+        query: (_id) =>  `exercise/${_id}.json`,
+    }),
     getUser: builder.query({
         query: (_id) =>  ({
             url: `users/${_id}.json`,
@@ -67,4 +70,4 @@ export const Api = createApi({
 
 export const { useGetAllCoursesQuery, useGetCourseByNameQuery, useGetWorkoutByIdQuery, useGetUserQuery,
  useAddNewUserMutation, useGetUserProgressQuery, useSetUserWorkoutCompletedMutation, useAddNewCourseMutation,
-useAddUserProgressMutation, useGetExercisesByIdQuery } = Api;
+useAddUserProgressMutation, useGetExercisesByIdQuery, useGetExercisesQuery } = Api;

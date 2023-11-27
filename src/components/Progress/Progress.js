@@ -47,21 +47,24 @@ body {
 }
 
 `
-export default function Progress({ userProgress }) {
+export default function Progress({ userProgress, exercises }) {
   const { data, isLoading } = useGetExercisesByIdQuery() // TODO: получать только нужные упражнения
-
+  console.log(exercises)
   if (isLoading) return <div>идет загузка...</div>
 
   const progress = []
-  userProgress.forEach((p) => {
+  userProgress.filter((pro) => {
+    return exercises.includes(pro.exercise)
+  }).forEach((p) => {
     let updatedUserProgress = { ...p }
     if (Object.keys(data).includes(p.exercise)) {
       updatedUserProgress.name = data[p.exercise].name
     }
     progress.push(updatedUserProgress)
+    console.log(updatedUserProgress)
   })
 
-
+console.log('progress', progress)
   return (
     <S.Wrapper>
       <GlobalStyle />
@@ -72,7 +75,6 @@ export default function Progress({ userProgress }) {
             const userP = exercise.number_of_repetitions
             const targetP = data[exercise.exercise].number_of_repetitions
             const percent = Math.round((userP / targetP) * 100);
-            console.log(percent)
             return (
               <S.List key={index}>
                 <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
