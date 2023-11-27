@@ -1,10 +1,8 @@
 import { useParams } from 'react-router'
 import {
   useAddNewUserMutation,
-  useGetUserProgressQuery,
   useGetUserQuery,
   useGetWorkoutByIdQuery,
-  useSetUserWorkoutCompletedMutation,
 } from '../../Store/Service/Service'
 import Exercises from '../../components/Exercises/Exercises'
 import Header from '../../components/Header/Header'
@@ -14,17 +12,19 @@ import Progress from '../../components/Progress/Progress'
 import { useState } from 'react'
 import MyProgress from '../../components/MyProgress/MyProgress'
 import { Notifications } from 'react-push-notification'
+import PushNotice from '../../components/SetProgress/SetProgres'
 
 export default function TrainingPage() {
-  const userId = localStorage.getItem('userId')
-  const { data: userData, isLoading: isLoading1 } = useGetUserQuery(userId)
   const { id } = useParams()
   const { data, isLoading } = useGetWorkoutByIdQuery(id)
-  console.log(data)
+  const userId = localStorage.getItem('userId')
+  const { data: userData, isLoading: isLoading1 } = useGetUserQuery(userId)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [UpdateUser] = useAddNewUserMutation()
+  const [showNotice, setShowNotice] = useState(false)
+
   if (isLoading || isLoading1) return <div>Идет загрузка</div>
- 
+
   const setProgress = (array) => {
     let changedUserData = JSON.parse(JSON.stringify(userData))
     console.log(changedUserData)
@@ -47,13 +47,16 @@ export default function TrainingPage() {
         changedUserData.progress.push(existingProgress)
       }
     })
-    UpdateUser({id: userId, data: changedUserData}).finally(() => {window.location.reload()})
+    UpdateUser({ id: userId, data: changedUserData }).finally(() => {
+      window.location.reload()
+    })
+    setShowNotice(true)
     console.log(changedUserData)
   }
 
   return (
     <S.StyledSection>
-      <Notifications /> 
+      <Notifications />
       <Header />
       <S.TitleContent>
         <S.Content>Название курса</S.Content>
@@ -66,8 +69,7 @@ export default function TrainingPage() {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
-        <Progress userProgress={userData.progress} 
-        exercises={data.exercises}/>
+        <Progress userProgress={userData.progress} exercises={data.exercises} />
       </S.Footer>
       {isModalOpen && (
         <MyProgress
@@ -76,7 +78,7 @@ export default function TrainingPage() {
           setProgress={setProgress}
         />
       )}
-      {/* <PushNotice /> */}
+      {showNotice ? <PushNotice setShowNotice={setShowNotice} /> : ''}
     </S.StyledSection>
   )
 }

@@ -16,14 +16,16 @@ export default function Exercises({exercises, setIsModalOpen }) {
         <S.ExercisesDiv>
             <S.ExercisesTitle>Упражнения</S.ExercisesTitle>
             <S.ExercisesUl>
-            {Object.values(filteredExercises).map((exercise, index) => (
-                <S.ExercisesLi key={index}>
-                    <S.ExercisesStrong>{exercise.name}</S.ExercisesStrong>  
-                    <S.ExercisesStrong> ( {exercise.number_of_repetitions} повторений )</S.ExercisesStrong> 
-                </S.ExercisesLi>
-                ))}
-            </S.ExercisesUl>
-            <S.ExercisesButton onClick={() => setIsModalOpen(true)}>Заполнить свой прогресс</S.ExercisesButton>
+                {Object.values(filteredExercises).map((exercise, index) => (
+                    <S.ExercisesLi key={index}>
+                        <S.ExercisesStrong>{exercise.name}</S.ExercisesStrong>  
+                        <S.ExercisesStrong> ( {exercise.number_of_repetitions} повторений )</S.ExercisesStrong> 
+                    </S.ExercisesLi>
+                    ))}
+                </S.ExercisesUl>
+                 <S.ExercisesButton onClick={() => setIsModalOpen(true)}>Заполнить свой прогресс</S.ExercisesButton>
+                
         </S.ExercisesDiv>
+
     )
 }

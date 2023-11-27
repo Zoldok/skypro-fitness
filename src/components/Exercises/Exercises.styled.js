@@ -53,4 +53,8 @@ export const ExercisesButton = styled.button`
     border-color: #b672ff;
   }
 `
-
+export const ExercisesNo = styled.p`
+    color: #580EA2;
+    font-size: 32px;
+    line-height: 40px;
+`

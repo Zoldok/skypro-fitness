@@ -49,22 +49,22 @@ body {
 `
 export default function Progress({ userProgress, exercises }) {
   const { data, isLoading } = useGetExercisesByIdQuery() // TODO: получать только нужные упражнения
-  console.log(exercises)
+
   if (isLoading) return <div>идет загузка...</div>
 
   const progress = []
-  userProgress.filter((pro) => {
-    return exercises.includes(pro.exercise)
-  }).forEach((p) => {
-    let updatedUserProgress = { ...p }
-    if (Object.keys(data).includes(p.exercise)) {
-      updatedUserProgress.name = data[p.exercise].name
-    }
-    progress.push(updatedUserProgress)
-    console.log(updatedUserProgress)
-  })
+  userProgress
+    .filter((pro) => {
+      return exercises.includes(pro.exercise)
+    })
+    .forEach((p) => {
+      let updatedUserProgress = { ...p }
+      if (Object.keys(data).includes(p.exercise)) {
+        updatedUserProgress.name = data[p.exercise].name
+      }
+      progress.push(updatedUserProgress)
+    })
 
-console.log('progress', progress)
   return (
     <S.Wrapper>
       <GlobalStyle />
@@ -74,7 +74,8 @@ console.log('progress', progress)
           {progress.map((exercise, index) => {
             const userP = exercise.number_of_repetitions
             const targetP = data[exercise.exercise].number_of_repetitions
-            const percent = Math.round((userP / targetP) * 100);
+            const percent = Math.round((userP / targetP) * 100)
+            const progressText = `${percent}%`
             return (
               <S.List key={index}>
                 <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
@@ -82,7 +83,9 @@ console.log('progress', progress)
                   max="100"
                   value={percent}
                   className={`progress-${Math.floor(Math.random() * 3) + 1}`}
-                />
+                >
+                  {progressText}
+                </S.ContentProgressScaleOne>
               </S.List>
             )
           })}

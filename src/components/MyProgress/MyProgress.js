@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './MyProgressStyle'
-import { useAddUserProgressMutation, useGetExercisesByIdQuery } from '../../Store/Service/Service';
-import { useState } from 'react';
+import { useGetExercisesByIdQuery } from '../../Store/Service/Service'
+import { useState } from 'react'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -48,52 +48,62 @@ body {
 }
 
 `
-export default function MyProgress({ handleClickOutside, exercises, setIsModalOpen, setProgress }) {
+export default function MyProgress({
+  handleClickOutside,
+  exercises,
+  setIsModalOpen,
+  setProgress,
+}) {
   const { data, isLoading } = useGetExercisesByIdQuery()
 
-  const filteredExercises = {};
-    for (const key in data) {
-      if (exercises.includes(key)) {
-          filteredExercises[key] = data[key];
-        console.log(filteredExercises)
-      }
+  const filteredExercises = {}
+  for (const key in data) {
+    if (exercises.includes(key)) {
+      filteredExercises[key] = data[key]
+      console.log(filteredExercises)
     }
-  
-  if(isLoading) return <div>pfuheprf</div>
+  }
 
-  const [userValues, setUserValues] = useState(Object.values(filteredExercises).map(() => 0));
+  if (isLoading) return <div>pfuheprf</div>
 
+  const [userValues, setUserValues] = useState(
+    Object.values(filteredExercises).map(() => 0),
+  )
 
   const handleInputChange = (value, index) => {
-    const newValues = [...userValues];
-    newValues[index] = Number(value);
-    setUserValues(newValues);
-  };
+    const newValues = [...userValues]
+    newValues[index] = Number(value)
+    setUserValues(newValues)
+  }
 
   const handleClickSend = () => {
-    const ProgressArray = Object.values(filteredExercises).map((exercise, index) => {
-      return {id: exercise._id, number_of_repetitions: userValues[index]}
-    })
-    setProgress(ProgressArray);
-    setIsModalOpen(false);
-  };
+    const ProgressArray = Object.values(filteredExercises).map(
+      (exercise, index) => {
+        return { id: exercise._id, number_of_repetitions: userValues[index] }
+      },
+    )
+    setProgress(ProgressArray)
+    setIsModalOpen(false)
+  }
 
   return (
     <S.Wrapper onClick={handleClickOutside}>
       <GlobalStyle />
-      <S.BlockProgress >
+      <S.BlockProgress>
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
-            {Object.values(filteredExercises).map((exercise, index) => (
-                <S.BlockProgressBox key={index}>
-                    <S.BlockProgressBoxText>Сколько вы сделали: {exercise.name}</S.BlockProgressBoxText>  
-                    <S.Inputs 
-                      type={"number"}
-                      value={userValues[index]} 
-                      onChange={(event) => handleInputChange(event.target.value, index)} 
-                  />
-                </S.BlockProgressBox>
-              ))}
-        <S.Button onClick={handleClickSend} >Отправить</S.Button>
+        {Object.values(filteredExercises).map((exercise, index) => (
+          <S.BlockProgressBox key={index}>
+            <S.BlockProgressBoxText>
+              Сколько вы сделали: {exercise.question}
+            </S.BlockProgressBoxText>
+            <S.Inputs
+              type={'number'}
+              value={userValues[index]}
+              onChange={(event) => handleInputChange(event.target.value, index)}
+            />
+          </S.BlockProgressBox>
+        ))}
+        <S.Button onClick={handleClickSend}>Отправить</S.Button>
       </S.BlockProgress>
     </S.Wrapper>
   )
