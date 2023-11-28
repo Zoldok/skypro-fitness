@@ -24,7 +24,6 @@ export default function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/acquaint/:courseName" element={<Acquaint />} />
       <Route path="/TrainingPage/:id" element={<TrainingPage />} />
-      {/* <Route path="/AuthPage" element={<AuthPage />} /> */}
       <Route path="/acquaint" element={<Acquaint />} />
       <Route path="/login" element={<AuthPage isLoginMode={false} />} />
       <Route path="/register" element={<AuthPage isLoginMode />} />

@@ -1,73 +1,59 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const Api = createApi({
-  reducerPath: "Api",
+  reducerPath: 'Api',
   baseQuery: fetchBaseQuery({
     baseUrl:
-      "https://fitness-pro-919d9-default-rtdb.europe-west1.firebasedatabase.app/",
+      'https://fitness-pro-919d9-default-rtdb.europe-west1.firebasedatabase.app/',
   }),
   endpoints: (builder) => ({
     getAllCourses: builder.query({
       query: () => `courses.json`,
     }),
-    getCourseByName: builder.query({
-        query: (_id) => `courses/${_id}.json`,
+    getWorkouts: builder.query({
+      query: () => `workouts.json`,
     }),
     getWorkoutById: builder.query({
-        query: (_id) =>  ({
-            url: `workouts/${_id}.json`,
-        }),
+      query: (_id) => ({
+        url: `workouts/${_id}.json`,
+      }),
     }),
     getExercisesById: builder.query({
-        query: () =>  `exercise.json`,
+      query: () => `exercise.json`,
     }),
     getExercises: builder.query({
-        query: (_id) =>  `exercise/${_id}.json`,
+      query: (_id) => `exercise/${_id}.json`,
     }),
     getUser: builder.query({
-        query: (_id) =>  ({
-            url: `users/${_id}.json`,
-        }),
+      query: (_id) => ({
+        url: `users/${_id}.json`,
+      }),
     }),
-    addNewUser: builder.mutation({ 
-        query: (body) => ({
-            url: `users/${body.id}.json`,
-            method: "PUT",
-            body: body.data,
-        }),
+    addNewUser: builder.mutation({
+      query: (body) => ({
+        url: `users/${body.id}.json`,
+        method: 'PUT',
+        body: body.data,
+      }),
     }),
-    getWorkout: builder.query({ 
-        query: (body) =>
-            `users/${body.name}/courses/${body.courseName}/workouts/${body.workoutId}/url.json`,
-    }),
-    getUserProgress: builder.query({ 
-        query: (_id) =>
-            `users/${_id}/progress.json`,
-    }),
-    addUserProgress: builder.mutation({ 
-        query: (_id) => ({
-            url: `users/${_id}/progress.json`,
-            method: "POST",
-            body: body.progress,
-        }),
-    }),
-    setUserWorkoutCompleted: builder.mutation({
-        query: (body) => ({ 
-            url: `users/${body.userId}/courses/${body.courseName}/workouts/${body.workoutId}.json`,
-            method: "PATCH",
-            body: body.completed,
-        }),
-    }),
-    addNewCourse: builder.mutation({
-        query: (body) => ({
-            url: `users/${body.userId}/courses/${body.courseName}.json`,
-            method: "PUT",
-            body: body.data,
-        }),
+
+    addUserProgress: builder.mutation({
+      query: (_id) => ({
+        url: `users/${_id}/progress.json`,
+        method: 'POST',
+        body: body.progress,
+      }),
     }),
   }),
-});
+})
 
-export const { useGetAllCoursesQuery, useGetCourseByNameQuery, useGetWorkoutByIdQuery, useGetUserQuery,
- useAddNewUserMutation, useGetUserProgressQuery, useSetUserWorkoutCompletedMutation, useAddNewCourseMutation,
-useAddUserProgressMutation, useGetExercisesByIdQuery, useGetExercisesQuery } = Api;
+export const {
+  useGetAllCoursesQuery,
+  useGetWorkoutByIdQuery,
+  useGetUserQuery,
+  useAddNewUserMutation,
+  useAddUserProgressMutation,
+  useGetExercisesByIdQuery,
+  useGetExercisesQuery,
+  useGetWorkoutsQuery,
+} = Api
