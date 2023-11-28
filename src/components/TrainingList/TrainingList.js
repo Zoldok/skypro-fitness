@@ -1,55 +1,57 @@
-import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import * as S from './TrainingListStyle'
 import { setTrainingList } from '../../Store/Slice/Slice'
+import { useGetUserByIdQuery } from '../../Store/Service/Service'
+import Loader from '../Loader/Loader'
 
-const TrainingList = () => {
+const TrainingList = ({ workouts, onClose }) => {
   const dispatch = useDispatch()
-  const selector = useSelector(setTrainingList)
-  const modal = selector.payload.Api.forTrainingList
-
-  const [isActive, setIsActive] = useState(false)
-
+  const modalRef = useRef(null)
+  const userId = 'Nj8JToDl4N382Y6NTQ'
+  const [show, setShow] = useState(false)
   useEffect(() => {
-    if (modal !== false) {
-      setIsActive(!isActive)
+    const handleOutsideClick = (event) => {
+      if (
+        show &&
+        event.target &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
+        setShow(false)
+      }
     }
-  }, [modal]) // eslint-disable-line
 
-  const handleChooise = () => {
-    dispatch(setTrainingList({ modal: !modal }))
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [show])
+
+  if (!Array.isArray(workouts)) {
+    return null // or any other fallback UI you prefer
   }
+
+  workouts.forEach((workout) => {
+    console.log(workout)
+  })
 
   return (
     <S.Wrapper>
-      <S.Box>
+      <S.Box ref={modalRef}>
         <S.Title>Выберите тренировку</S.Title>
-        <S.Buttons>
-          <S.Button
-            exercise={'Утренняя практика'}
-            number={'Йога на каждый день / 1 день'}
-          />
-
-          <S.Button
-            exercise={'Красота и здоровье'}
-            number={'Йога на каждый день / 2 день'}
-            onClick={handleChooise}
-          />
-
-          <S.Button
-            exercise={'Асаны стоя'}
-            number={'Йога на каждый день / 3 день '}
-          />
-          <S.Button
-            exercise={'Растягиваем мышцы бедра'}
-            number={'Йога на каждый день / 5 день'}
-          />
-          <S.Button
-            exercise={'Гибкость спины'}
-            number={'Йога на каждый день / 5 день'}
-          />
-        </S.Buttons>
+        {workouts.map((workout, index) => (
+          <>
+            <S.Buttons>
+              <S.Button key={index}>{workout}</S.Button>
+            </S.Buttons>
+            {/* <ul>
+              <li key={index}>{workout}</li>
+            </ul> */}
+          </>
+        ))}
       </S.Box>
     </S.Wrapper>
   )

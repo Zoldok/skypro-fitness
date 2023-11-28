@@ -1,16 +1,16 @@
 export const handleImg = (item) => {
   switch (item.name) {
     case 'Стретчинг':
-      return '/img/stratching.png'
+      return '/img/course-banner/Стретчинг.png'
     case 'Бодифлекс':
-      return '/img/bodyflex1.png'
+      return '/img/course-banner/Бодифлекс.png'
     case 'Йога':
-      return '/img/cardYoga.png'
+      return '/img/course-banner/Йога.png'
     case 'Танцевальный фитнес ':
-      return '/img/dance.png'
+      return '/img/course-banner/Танцевальный фитнес.png'
     case 'Степ-аэробика':
-      return '/img/stap.png'
+      return '/img/course-banner/Степ-аэробика.png'
     default:
-      return '/img/stap.png'
+      return '/img/course-banner/Степ-аэробика.png'
   }
 }

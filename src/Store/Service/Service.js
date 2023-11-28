@@ -14,6 +14,14 @@ export const Api = createApi({
         query: (_id) => `courses/${_id}.json`,
     }),
     getWorkoutById: builder.query({
+
+      query: (_id) => `workouts${_id}.json`,
+    }),
+
+    getUserById: builder.query({
+      query: (_id) => `users/${_id}.json`,
+      providesTags: ['Status', 'Course'],
+
         query: (_id) =>  ({
             url: `workouts/${_id}.json`,
         }),
@@ -23,6 +31,7 @@ export const Api = createApi({
     }),
     getExercises: builder.query({
         query: (_id) =>  `exercise/${_id}.json`,
+
     }),
     getUser: builder.query({
         query: (_id) =>  ({
