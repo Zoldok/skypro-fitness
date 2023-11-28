@@ -14,8 +14,9 @@ export const Api = createApi({
       query: (_id) => `courses/${_id}.json`,
     }),
     getWorkoutById: builder.query({
-      query: (_id) => `workouts/${_id}.json`,
+      query: (_id) => `workouts${_id}.json`,
     }),
+
     getUserById: builder.query({
       query: (_id) => `users/${_id}.json`,
       providesTags: ['Status', 'Course'],

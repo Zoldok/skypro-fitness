@@ -6,6 +6,7 @@ import * as S from './SidebarPersonal.styled'
 function SidebarLogin() {
   const dispatch = useDispatch()
   const user = localStorage.getItem('userEmail')
+
   const navigate = useNavigate()
 
   const handleLogout = () => {
