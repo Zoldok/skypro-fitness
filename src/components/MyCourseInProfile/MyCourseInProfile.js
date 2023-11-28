@@ -1,6 +1,6 @@
 import { handleImg } from '../../help'
-import { useGetUserByIdQuery } from '../../Store/Service/Service'
-import Loader from '../Loader/Loader'
+import { useGetUserQuery } from '../../Store/Service/Service'
+import Preloader from '../Loader/Preloader'
 import * as S from './MyCourseInProfile.styles'
 
 function MyCourseInProfile() {
@@ -8,10 +8,10 @@ function MyCourseInProfile() {
   // const userId = localStorage.getItem('userID')
   const userId = 'Nj8JToDl4N382Y6NTQ'
   console.log('айди', userId)
-  const { data, isLoading } = useGetUserByIdQuery(userId)
+  const { data, isLoading } = useGetUserQuery(userId)
   console.log(data)
   if (isLoading) {
-    return <Loader />
+    return <Preloader />
   }
 
   return (
