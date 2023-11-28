@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import * as S from './ProgressStyle'
+import { useGetExercisesByIdQuery } from '../../Store/Service/Service'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -46,27 +47,48 @@ body {
 }
 
 `
-export default function Progress() {
+export default function Progress({ userProgress, exercises }) {
+  const { data, isLoading } = useGetExercisesByIdQuery() // TODO: получать только нужные упражнения
+
+  if (isLoading) return <div>идет загузка...</div>
+
+  const progress = []
+  userProgress
+    .filter((pro) => {
+      return exercises.includes(pro.exercise)
+    })
+    .forEach((p) => {
+      let updatedUserProgress = { ...p }
+      if (Object.keys(data).includes(p.exercise)) {
+        updatedUserProgress.name = data[p.exercise].name
+      }
+      progress.push(updatedUserProgress)
+    })
+
   return (
     <S.Wrapper>
       <GlobalStyle />
       <S.Content>
-        <S.ContentTitle>Мой прогресс по тренировке 2:</S.ContentTitle>
+        <S.ContentTitle>Мой прогресс по тренировке </S.ContentTitle>
         <S.ContentProgress>
-          <S.List>
-            <S.ContentProgressText>Наклоны вперед</S.ContentProgressText>
-            <S.ContentProgressScaleOne max="100" value="45" />
-          </S.List>
-          <S.List>
-            <S.ContentProgressText>Наклоны назад</S.ContentProgressText>
-            <S.ContentProgressScaleTwo max="100" value="45" />
-          </S.List>
-          <S.List>
-            <S.ContentProgressText>
-              Поднятие ног, согнутых в коленях
-            </S.ContentProgressText>
-            <S.ContentProgressScaleThree max="100" value="45" />
-          </S.List>
+          {progress.map((exercise, index) => {
+            const userP = exercise.number_of_repetitions
+            const targetP = data[exercise.exercise].number_of_repetitions
+            const percent = Math.round((userP / targetP) * 100)
+            const progressText = `${percent}%`
+            return (
+              <S.List key={index}>
+                <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
+                <S.ContentProgressScaleOne
+                  max="100"
+                  value={percent}
+                  className={`progress-${Math.floor(Math.random() * 3) + 1}`}
+                >
+                  {progressText}
+                </S.ContentProgressScaleOne>
+              </S.List>
+            )
+          })}
         </S.ContentProgress>
       </S.Content>
     </S.Wrapper>
