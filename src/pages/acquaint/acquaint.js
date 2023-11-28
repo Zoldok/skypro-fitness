@@ -1,10 +1,13 @@
 import * as S from './acquaint.styled'
 import React, { useState } from 'react';
 import ModalComponent from '../../components/ModalWindow/recording';
-import Loader from '../../components/Loader/Loader'
+// import Loader from '../../components/Loader/Loader'
 // import { useUser } from '../../context';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCourseInfo } from '../../components/CardsSection/CoursDate'
+import Preloader from '../../components/Loader/Preloader';
+
+
 
 export default function Acquaint() {
   const { COURSEINFO, isLoading, courseData } = useCourseInfo()
@@ -21,14 +24,14 @@ export default function Acquaint() {
   navigate('/')}
 
   if (isLoading) {
-    return <Loader />
+    return <Preloader />
   }
   // const selectedCourseName = match.params.courseName;
   const selectedCourse = COURSEINFO.find((course) => course.id === courseName)
 
   console.log(selectedCourse)
   if (!selectedCourse) {
-    return <div>Курс не найден</div>
+    return <Preloader />
   }
   return (
     <S.StyledPromo>
