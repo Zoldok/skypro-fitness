@@ -116,8 +116,13 @@ export default function AuthPage({ isLoginMode = false }) {
         navigate('/login')
       })
       .catch((error) => {
-        console.log('Ошибка регистрации:', error.message)
-        setPasswordMatchError('Пользователь уже занят')
+        if (error.message.includes('auth/invalid-email')) {
+          setPasswordMatchError('Введен невалидный email')
+          return
+        } else if (error.message.includes('auth/email-already-in-use')) {
+          setPasswordMatchError('Пользователь с таким email уже существует')
+          return
+        }
       })
   }
 
@@ -132,6 +137,7 @@ export default function AuthPage({ isLoginMode = false }) {
           console.log(user)
           dispatch(
             setLogin({
+              type: 'setUser',
               userId: user.uid,
               email: user.email,
             }),
@@ -141,26 +147,8 @@ export default function AuthPage({ isLoginMode = false }) {
           navigate('/profile')
         })
         .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          if (errorCode === 'auth/wrong-password') {
-            Toast.show({
-              text: `${Strings.ST30}`,
-              position: 'bottom',
-              buttonText: `${Strings.ST33}`,
-            })
-          } else if (errorCode === 'auth/user-not-found') {
-            Toast.show({
-              text: `${Strings.ST31}`,
-              position: 'bottom',
-              buttonText: `${Strings.ST33}`,
-            })
-          } else {
-            Toast.show({
-              text: `${Strings.ST32}`,
-              position: 'bottom',
-              buttonText: `${Strings.ST33}`,
-            })
+          if (error.message.includes('auth/invalid-login-credentials')) {
+            setPasswordMatchError('Не верный E-mail/пароль')
           }
         })
     } else {

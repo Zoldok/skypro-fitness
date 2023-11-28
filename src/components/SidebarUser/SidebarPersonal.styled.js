@@ -31,9 +31,9 @@ export const SidebarPersonalName = styled.p`
 `
 
 export const SidebarIcon = styled.div`
-  width: 43px;
-  height: 43px;
-  background-color: #313131;
+  width: 40px;
+  height: 40px;
+  background-color: #000000;
   border-radius: 50%;
   cursor: pointer;
 `

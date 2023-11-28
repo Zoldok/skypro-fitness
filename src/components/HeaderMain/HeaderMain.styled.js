@@ -5,7 +5,8 @@ export const HeaderMain = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 50px 0;
+  padding-top: 30px;
+  padding-bottom: 35px;
   gap: 20px;
   flex-wrap: wrap;
 `
