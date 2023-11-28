@@ -57,12 +57,34 @@ export const Buttons = styled.div`
 `
 export const Button = styled.button`
   background-color: let(--background-color-button);
-  color: var(--color-text);
+  color: #000000;
   width: 275px;
   height: 52px;
   border-radius: 46px;
   border: none;
   flex-shrink: 0;
+
+  background-color: let(--background-color-allPage);
+  color: #000;
+  width: 278px;
+  border-radius: 26px;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:title {
+    font-size: 20px;
+    line-height: 115%;
+    letter-spacing: -0.05px;
+    text-align: center;
+    width: 188px;
+  }
+  &:text {
+    color: #000000;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.016px;
+  }
   &::active {
     background-color: let(--background-color-button-active);
   }

@@ -113,4 +113,3 @@ const onListItemClick = ( id ) => {
 }
 
 export default MyCourseInProfile
-
