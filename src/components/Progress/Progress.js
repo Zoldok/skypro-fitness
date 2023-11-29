@@ -47,6 +47,7 @@ body {
 }
 
 `
+
 export default function Progress({ userProgress, exercises }) {
   const { data, isLoading } = useGetExercisesByIdQuery() // TODO: получать только нужные упражнения
 
@@ -64,8 +65,8 @@ export default function Progress({ userProgress, exercises }) {
       }
       progress.push(updatedUserProgress)
     })
-
-    const progressClasses = ['progress-1', 'progress-2', 'progress-3'];
+    // const backgrdBorder = ['#565EEF', '#FF6D00', '#9A48F1'];
+    const backgrd = ['#565EEF', '#FF6D00', '#9A48F1'];
   return (
     <S.Wrapper>
       <GlobalStyle />
@@ -80,13 +81,15 @@ export default function Progress({ userProgress, exercises }) {
             return (
               <S.List key={index}>
                 <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
+                <S.ContentProgressScale backgrd={backgrd[index % backgrd.length]}>
                   <S.ContentProgressScaleOne
                     max="100"
                     value={percent}
-                    className={progressClasses[index % progressClasses.length]}
-                  >
-                    {progressText}
+                    backgrd={backgrd[index % backgrd.length]}
+                    percent={percent}
+                  ><S.labelStyles>{progressText}</S.labelStyles> 
                   </S.ContentProgressScaleOne>
+                </S.ContentProgressScale>
               </S.List>
             )
           })}

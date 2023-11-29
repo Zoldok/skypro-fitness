@@ -34,38 +34,42 @@ export const ContentProgressText = styled.p`
   line-height: 32px;
   width: 227px;
 `
-export const ContentProgressScaleOne = styled.progress`
+export const ContentProgressScale = styled.div`
+appearance: none;
+-moz-appearance: none;
+-webkit-appearance: none
+border: none;
+border-radius: 22px;
+border: 2px solid ${(props) => props.backgrd};
+background: #EDECFF;
+height: 35px;
+width: 240px;
+box-shadow: 0 0 0 2px ${(props) => props.backgrd};
+`
+
+export const ContentProgressScaleOne = styled.div`
 appearance: none;
 -moz-appearance: none;
 -webkit-appearance: none;
 border: none;
 border: 0;
 border-radius: 22px;
-background-color: #565eef;
+background-color: ${(props) => props.backgrd};
 height: 35px;
-width: 240px;
-&::-webkit-progress-bar {
-  background-color: #edecff;
-  border-radius: 22px;
-  box-shadow: 0 0 0 2px #565eef;
-}
-&.progress-1::-webkit-progress-value {
-  background-color: #FF6D00; 
-  border-radius: 22px 0 0 22px;
-}
-&.progress-2::-webkit-progress-value {
-  background-color: #9A48F1; 
-  border-radius: 22px 0 0 22px;
-}
-&.progress-3::-webkit-progress-value {
-  background-color: #565EEF; 
-  border-radius: 22px 0 0 22px;
-}
-&::-moz-progress-bar {
-  background-color: #565eef;
-  border-radius: 22px 0 0 22px;
-}
+width: ${props => props.percent}%;
 `
+
+export const labelStyles = styled.span`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #FFF;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+`
+
 export const List = styled.div`
   display: flex;
   justify-content: space-around;

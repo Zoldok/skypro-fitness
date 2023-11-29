@@ -1,19 +1,18 @@
 import { useParams } from 'react-router'
 import {
-  
   useAddNewUserMutation,
   useGetUserQuery,
   useGetWorkoutByIdQuery,
 } from '../../Store/Service/Service'
 import Exercises from '../../components/Exercises/Exercises'
-import Header from '../../components/Header/Header'
 import Video from '../../components/Video/Video'
 import * as S from './training.styled'
 import Progress from '../../components/Progress/Progress'
 import { useState } from 'react'
 import MyProgress from '../../components/MyProgress/MyProgress'
-// import { Notifications } from 'react-push-notification'
 import PushNotice from '../../components/SetProgress/SetProgres'
+import HeaderProfile from '../../components/Header/HeaderProfile'
+import { Preloader } from '../../components/Loader/Preloader.styles'
 
 export default function TrainingPage() {
   const { id } = useParams()
@@ -24,7 +23,7 @@ export default function TrainingPage() {
   const [UpdateUser] = useAddNewUserMutation()
   const [showNotice, setShowNotice] = useState(false)
 
-  if (isLoading || isLoading1) return <div>Идет загрузка</div>
+  if (isLoading || isLoading1) return <Preloader />
 
   const setProgress = (array) => {
     let changedUserData = JSON.parse(JSON.stringify(userData))
@@ -57,8 +56,7 @@ export default function TrainingPage() {
 
   return (
     <S.StyledSection>
-      {/* <Notifications /> */}
-      <Header />
+      <HeaderProfile />
       <S.TitleContent>
         <S.Content>{data.courseName}</S.Content>
         <S.TitleTraining>{data.name}</S.TitleTraining>
