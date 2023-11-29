@@ -1,5 +1,6 @@
 import { useParams } from 'react-router'
 import {
+  
   useAddNewUserMutation,
   useGetUserQuery,
   useGetWorkoutByIdQuery,
@@ -11,7 +12,7 @@ import * as S from './training.styled'
 import Progress from '../../components/Progress/Progress'
 import { useState } from 'react'
 import MyProgress from '../../components/MyProgress/MyProgress'
-import { Notifications } from 'react-push-notification'
+// import { Notifications } from 'react-push-notification'
 import PushNotice from '../../components/SetProgress/SetProgres'
 
 export default function TrainingPage() {
@@ -56,7 +57,7 @@ export default function TrainingPage() {
 
   return (
     <S.StyledSection>
-      <Notifications />
+      {/* <Notifications /> */}
       <Header />
       <S.TitleContent>
         <S.Content>{data.courseName}</S.Content>
