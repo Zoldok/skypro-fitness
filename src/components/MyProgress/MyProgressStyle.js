@@ -42,7 +42,7 @@ export const BlockProgressBox = styled.div`
 `
 export const BlockProgressBoxText = styled.p`
   color: #000;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.05px;
   margin-bottom: 20px;

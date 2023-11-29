@@ -47,6 +47,7 @@ width: 240px;
 &::-webkit-progress-bar {
   background-color: #edecff;
   border-radius: 22px;
+  box-shadow: 0 0 0 2px #565eef;
 }
 &.progress-1::-webkit-progress-value {
   background-color: #FF6D00; 

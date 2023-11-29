@@ -65,6 +65,7 @@ export default function Progress({ userProgress, exercises }) {
       progress.push(updatedUserProgress)
     })
 
+    const progressClasses = ['progress-1', 'progress-2', 'progress-3'];
   return (
     <S.Wrapper>
       <GlobalStyle />
@@ -79,13 +80,13 @@ export default function Progress({ userProgress, exercises }) {
             return (
               <S.List key={index}>
                 <S.ContentProgressText>{exercise.name}</S.ContentProgressText>
-                <S.ContentProgressScaleOne
-                  max="100"
-                  value={percent}
-                  className={`progress-${Math.floor(Math.random() * 3) + 1}`}
-                >
-                  {progressText}
-                </S.ContentProgressScaleOne>
+                  <S.ContentProgressScaleOne
+                    max="100"
+                    value={percent}
+                    className={progressClasses[index % progressClasses.length]}
+                  >
+                    {progressText}
+                  </S.ContentProgressScaleOne>
               </S.List>
             )
           })}

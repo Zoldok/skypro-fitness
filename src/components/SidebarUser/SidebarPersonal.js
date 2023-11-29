@@ -19,7 +19,7 @@ function SidebarLogin() {
     <S.SidebarPersonal>
       <S.SidebarIcon onClick={handleLogout}>
         <svg alt="logout">
-          <use xlinkHref="img/sprite.svg#logout"></use>
+          <use xlinkHref="../img/sprite.svg#logout"></use>
         </svg>
       </S.SidebarIcon>
       <S.SidebarPersonalName>{user}</S.SidebarPersonalName>
