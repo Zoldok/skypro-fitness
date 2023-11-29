@@ -17,7 +17,7 @@ export default function AppRoutes() {
         <Route path="/profile" element={<Profile />} />
       </Route>
       <Route path="/" element={<Main />} />
-      <Route path="/acquaint/:id" element={<Acquaint />} />
+      {/* <Route path="/acquaint/:id" element={<Acquaint />} /> */}
       <Route path="/profile" element={<Profile />} />
       <Route path="/acquaint/:courseName" element={<Acquaint />} />
       <Route path="/TrainingPage/:id" element={<TrainingPage />} />
