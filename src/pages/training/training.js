@@ -59,7 +59,7 @@ export default function TrainingPage() {
       <Notifications />
       <Header />
       <S.TitleContent>
-        <S.Content>Название курса</S.Content>
+        <S.Content>{data.courseName}</S.Content>
         <S.TitleTraining>{data.name}</S.TitleTraining>
       </S.TitleContent>
       <Video videoUrl={data.url} />

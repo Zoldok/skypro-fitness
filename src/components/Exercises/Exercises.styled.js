@@ -24,7 +24,7 @@ export const ExercisesLi = styled.li`
 `
 export const ExercisesStrong = styled.strong`
     color: var(--colot-text);
-    font-size: 24px;
+    font-size: 22px;
     font-style: normal
     line-height: 32px;
     margin-left: 20px;

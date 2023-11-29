@@ -18,8 +18,9 @@ export default function Exercises({exercises, setIsModalOpen }) {
             <S.ExercisesUl>
                 {Object.values(filteredExercises).map((exercise, index) => (
                     <S.ExercisesLi key={index}>
-                        <S.ExercisesStrong>{exercise.name}</S.ExercisesStrong>  
-                        <S.ExercisesStrong> ( {exercise.number_of_repetitions} повторений )</S.ExercisesStrong> 
+                        <S.ExercisesStrong>
+                            {exercise.name} ({exercise.number_of_repetitions} повторений)
+                        </S.ExercisesStrong>
                     </S.ExercisesLi>
                     ))}
                 </S.ExercisesUl>
