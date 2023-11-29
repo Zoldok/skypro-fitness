@@ -1,35 +1,27 @@
 import * as S from './acquaint.styled'
-import React, { useState } from 'react';
-import ModalComponent from '../../components/ModalWindow/recording';
-// import Loader from '../../components/Loader/Loader'
-// import { useUser } from '../../context';
+import React, { useState } from 'react'
+import ModalComponent from '../../components/ModalWindow/recording'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCourseInfo } from '../../components/CardsSection/CoursDate'
-import Preloader from '../../components/Loader/Preloader';
-
-
+import Preloader from '../../components/Loader/Preloader'
 
 export default function Acquaint() {
   const { COURSEINFO, isLoading, courseData } = useCourseInfo()
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  
   const { courseName } = useParams()
-  console.log('courseName:', courseData)
-  console.log(typeof courseName)
-
 
   const navigate = useNavigate()
   const goHome = () => {
-  navigate('/')}
+    navigate('/')
+  }
 
   if (isLoading) {
     return <Preloader />
   }
-  // const selectedCourseName = match.params.courseName;
+
   const selectedCourse = COURSEINFO.find((course) => course.id === courseName)
 
-  console.log(selectedCourse)
   if (!selectedCourse) {
     return <Preloader />
   }
@@ -76,8 +68,12 @@ export default function Acquaint() {
           выбором направления и тренера, с которым тренировки принесут здоровье
           и радость!
         </S.DirectionsAboutCourse>
-        <S.ProfileButton onClick={() => setIsModalOpen(true)}>Записаться</S.ProfileButton>
-        {isModalOpen && <ModalComponent onClose={() => setIsModalOpen(false)} />}
+        <S.ProfileButton onClick={() => setIsModalOpen(true)}>
+          Записаться
+        </S.ProfileButton>
+        {isModalOpen && (
+          <ModalComponent onClose={() => setIsModalOpen(false)} />
+        )}
 
         <S.StyleMyCoursBlock2>
           <S.BlockTrainPhone src="../../img/application.svg" alt="logo" />

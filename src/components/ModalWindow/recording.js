@@ -3,7 +3,7 @@ import * as S from './recording.style'
 
 const ModalComponent = ({ onClose }) => {
   const modalRef = useRef(null);
-    const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
 
   useEffect(() => {
