@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  // isAuthenticated: false,
+  isAuthenticated: false,
   userId: null,
   courses: [],
   currentWorkout: null,
@@ -18,7 +18,7 @@ const appSlice = createSlice({
     setLogin: (state, { payload }) => ({
       ...state,
       userId: payload.userId,
-      // isAuthenticated: true,
+      isAuthenticated: true,
       email: payload.email,
     }),
     setUserInfo: (state, { payload }) => ({

@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { setLogin } from '../../Store/Slice/Slice'
+import { useNavigate } from 'react-router-dom'
 import * as S from './SidebarPersonal.styled'
 
 function SidebarLogin() {
@@ -19,7 +18,7 @@ function SidebarLogin() {
     <S.SidebarPersonal>
       <S.SidebarIcon onClick={handleLogout}>
         <svg alt="logout">
-          <use xlinkHref="img/sprite.svg#logout"></use>
+          <use xlinkHref="../img/sprite.svg#logout"></use>
         </svg>
       </S.SidebarIcon>
       <S.SidebarPersonalName>{user}</S.SidebarPersonalName>

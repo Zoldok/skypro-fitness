@@ -13,10 +13,10 @@ function MyCourseInProfile() {
   const userId = 'Nj8JToDl4N382Y6NTQ'
 
 
-  const { data, isLoading } = useGetUserByIdQuery(userId)
+  // const { data, isLoading } = useGetUserByIdQuery(userId)
 
-  console.log('айди', userId)
-  const { data, isLoading } = useGetUserQuery(userId)
+  // console.log('айди', userId)
+  // const { data, isLoading } = useGetUserQuery(userId)
 
   console.log(data)
   if (isLoading) {
