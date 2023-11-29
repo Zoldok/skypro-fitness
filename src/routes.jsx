@@ -6,7 +6,7 @@ import AuthPage from './pages/Authpage/AuthPage'
 
 import ProtectedRoute from './components/ProtectedRoute/protected-route'
 
-import Main from './pages/main/Main'
+import Main from './pages/Main/Main'
 import TrainingPage from './pages/training/training'
 
 export default function AppRoutes() {
