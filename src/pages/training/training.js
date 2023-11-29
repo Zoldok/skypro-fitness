@@ -27,7 +27,6 @@ export default function TrainingPage() {
 
   const setProgress = (array) => {
     let changedUserData = JSON.parse(JSON.stringify(userData))
-    console.log(changedUserData)
 
     if (!changedUserData.progress) {
       changedUserData.progress = []
@@ -51,7 +50,6 @@ export default function TrainingPage() {
       window.location.reload()
     })
     setShowNotice(true)
-    console.log(changedUserData)
   }
 
   return (

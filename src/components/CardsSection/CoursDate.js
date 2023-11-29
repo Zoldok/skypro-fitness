@@ -39,7 +39,6 @@ export const useCourseInfo = () => {
         data: isLoading ? [] : courseData[courseId[4]] || [],
       },
     ]
-    console.log('из constant', COURSES)
     SETCOURSEINFO(COURSES)
   }, [courseData])
 

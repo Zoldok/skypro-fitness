@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
-const ProtectedRoute = ({ redirectPath = '/', isAllowed }) => {
-  if (!isAllowed) {
+const ProtectedRoute = ({ redirectPath = '/' }) => {
+  const user = localStorage.getItem('userEmail')
+  if (!user) {
     return <Navigate to={redirectPath} replace={true} />
   }
 

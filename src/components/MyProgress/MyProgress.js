@@ -49,7 +49,6 @@ body {
 
 `
 export default function MyProgress({
-  handleClickOutside,
   exercises,
   setIsModalOpen,
   setProgress,
@@ -60,7 +59,6 @@ export default function MyProgress({
   for (const key in data) {
     if (exercises.includes(key)) {
       filteredExercises[key] = data[key]
-      console.log(filteredExercises)
     }
   }
 
@@ -87,7 +85,7 @@ export default function MyProgress({
   }
 
   return (
-    <S.Wrapper onClick={handleClickOutside}>
+    <S.Wrapper >
       <GlobalStyle />
       <S.BlockProgress>
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
