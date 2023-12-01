@@ -8,7 +8,7 @@ import Exercises from '../../components/Exercises/Exercises'
 import Video from '../../components/Video/Video'
 import * as S from './training.styled'
 import Progress from '../../components/Progress/Progress'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MyProgress from '../../components/MyProgress/MyProgress'
 import PushNotice from '../../components/SetProgress/SetProgres'
 import HeaderProfile from '../../components/Header/HeaderProfile'
@@ -22,8 +22,6 @@ export default function TrainingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [UpdateUser] = useAddNewUserMutation()
   const [showNotice, setShowNotice] = useState(false)
-
-  if (isLoading || isLoading1) return <Preloader />
 
   const setProgress = (array) => {
     let changedUserData = JSON.parse(JSON.stringify(userData))
@@ -51,7 +49,23 @@ export default function TrainingPage() {
     })
     setShowNotice(true)
   }
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal()
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+  if (isLoading || isLoading1) return <Preloader />
   return (
     <S.StyledSection>
       <HeaderProfile />

@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const BlockProgress = styled.div`
   width: 444px;
-  height: 554px;
+  height: auto;
   padding-top: 36px;
   background-color: #ffffff;
   display: flex;
@@ -77,6 +77,7 @@ export const Button = styled.button`
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
+  margin-bottom: 44px;
 
   &:disabled {
     background-color: #00000;

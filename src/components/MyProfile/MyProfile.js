@@ -1,5 +1,5 @@
 import { getAuth, updateEmail, updatePassword } from 'firebase/auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as S from './MyProfile.styles'
 import { setEmail } from '../../Store/Slice/Slice'
@@ -9,14 +9,32 @@ import CorrectPassword from '../../pages/CorrectPassword/Correct'
 function MyProfile() {
   const dispatch = useDispatch()
   const userName = localStorage.getItem('userEmail')
-
   const auth = getAuth()
   const [visibleLogin, setVisibleLogin] = useState(false)
   const [visiblePas, setVisiblePas] = useState(false)
   const [newEmail, setNewEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleEscape = (event) => {
+    if (event.key === 'Escape') {
+      if (isEditing) {
+        setVisibleLogin(false)
+        setVisiblePas(false)
+        setIsEditing(false)
+      } else {
+      }
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscape)
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [isEditing])
 
   const handleLogin = () => {
+    setIsEditing(true)
     setVisibleLogin(!visibleLogin)
     const user = auth.currentUser
     updateEmail(user, newEmail)
@@ -30,6 +48,7 @@ function MyProfile() {
   }
 
   const handlePassword = () => {
+    setIsEditing(true)
     setVisiblePas(!visiblePas)
     const user = auth.currentUser
 
@@ -41,6 +60,7 @@ function MyProfile() {
         alert('Некорректный пароль')
       })
   }
+
   return (
     <S.HeaderStyleMyProfile>
       <S.NamePages>Мой профиль</S.NamePages>

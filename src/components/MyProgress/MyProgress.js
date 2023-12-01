@@ -48,11 +48,7 @@ body {
 }
 
 `
-export default function MyProgress({
-  exercises,
-  setIsModalOpen,
-  setProgress,
-}) {
+export default function MyProgress({ exercises, setIsModalOpen, setProgress }) {
   const { data, isLoading } = useGetExercisesByIdQuery()
 
   const filteredExercises = {}
@@ -68,10 +64,19 @@ export default function MyProgress({
     Object.values(filteredExercises).map(() => 0),
   )
 
+  const NumberArray = Object.values(filteredExercises).map(
+    (exercise, index) => exercise.number_of_repetitions,
+  )
+
   const handleInputChange = (value, index) => {
     const newValues = [...userValues]
-    newValues[index] = Number(value)
-    setUserValues(newValues)
+
+    if (Number(value) <= NumberArray[index]) {
+      newValues[index] = Number(value)
+      setUserValues(newValues)
+    } else {
+      return
+    }
   }
 
   const handleClickSend = () => {
@@ -85,14 +90,15 @@ export default function MyProgress({
   }
 
   return (
-    <S.Wrapper >
+    <S.Wrapper>
       <GlobalStyle />
       <S.BlockProgress>
         <S.TitleProgress>Мой прогресс</S.TitleProgress>
         {Object.values(filteredExercises).map((exercise, index) => (
           <S.BlockProgressBox key={index}>
             <S.BlockProgressBoxText>
-              Сколько вы сделали: {exercise.question}
+              Сколько вы сделали: {exercise.question} (не более{' '}
+              {NumberArray[index]})?
             </S.BlockProgressBoxText>
             <S.Inputs
               type={'number'}
