@@ -68,7 +68,6 @@ export default function CorrectLogin({ onClick, setNew }) {
             onChange={(event) => setDataOnChange(event, setNew)}
           />
         </S.Inputs>
-        {/* {error && <S.Error>{error}</S.Error>} */}
         <S.Buttons>
           <S.PrimaryButton onClick={onClick}>Сохранить</S.PrimaryButton>
         </S.Buttons>

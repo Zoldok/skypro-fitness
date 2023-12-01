@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const HeaderStyleMyProfile = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ export const ImgBox = styled.div`
   cursor: pointer;
   width: 360px;
   height: 480px;
-  &::hover {
+  &:hover {
     opacity: 0.8;
     transition: 0.3s;
   }
@@ -71,7 +71,7 @@ export const CourseButton = styled.button`
 export const Modal = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -135,15 +135,11 @@ export const ModalListItem = styled.button`
   color: #000000;
   font-size: 16px;
   line-height: 18px;
-  letter-spacing: -0.05px;
   text-align: center;
-  ${(props) =>
-    props.active &&
-    css`
-      border: 2px solid #06b16e;
-      padding: 10px 20px;
-      color: #06b16e;
-    `}
+  &:active {
+    border: 2px solid #06b16e;
+    color: #06b16e;
+  }
 `
 
 export const ItemBox = styled.div`
@@ -151,4 +147,3 @@ export const ItemBox = styled.div`
   top: -5px;
   position: absolute;
 `
-

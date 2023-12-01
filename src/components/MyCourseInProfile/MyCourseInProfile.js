@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { handleImg } from '../../help'
 import {
   useGetAllCoursesQuery,
@@ -12,18 +12,14 @@ import * as S from './MyCourseInProfile.styles'
 function MyCourseInProfile() {
   const modalRef = useRef(null)
   const navigate = useNavigate()
-  const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedCourse, setSelectedCourse] = useState(null)
-  const [selectedItemId, setSelectedItemId] = useState(null)
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState(null)
+  const [completedWorkouts, setCompletedWorkouts] = useState({})
   const userId = localStorage.getItem('userId')
   const { data, isLoading } = useGetUserQuery(userId)
   const { data: allCourses, isLoading: isLoading1 } = useGetAllCoursesQuery()
   const { data: allWorkouts, isLoading: isLoading2 } = useGetWorkoutsQuery()
-
-  if (isLoading || isLoading1 || isLoading2) {
-    return <Preloader />
-  }
 
   const filteredCourses = {}
   for (const key in allCourses) {
@@ -39,7 +35,6 @@ function MyCourseInProfile() {
         filteredWorkouts[key] = allWorkouts[key]
       }
     }
-    console.log(filteredWorkouts)
     setSelectedCourse(filteredWorkouts)
     setIsModalOpen(true)
   }
@@ -47,12 +42,32 @@ function MyCourseInProfile() {
     setIsModalOpen(false)
   }
 
-const onListItemClick = ( id ) => {
-    setSelectedItemId((prevSelectedItemId) =>
-      prevSelectedItemId !== courseName ? courseName : null,
-    )
-    navigate(`/TrainingPage/${id}`) 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      closeModal()
+    }
   }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+  if (isLoading || isLoading1 || isLoading2) {
+    return <Preloader />
+  }
+
+  const onListItemClick = (id) => {
+    setSelectedWorkoutId(id)
+
+    navigate(`/TrainingPage/${id}`)
+    setCompletedWorkouts((prevItems) => {
+      const updatedItems = { ...prevItems, [id]: !prevItems[id] }
+      return updatedItems
+    })
+  }
+
   return (
     <S.HeaderStyleMyProfile>
       <S.NameCourseUser>Мои Курсы</S.NameCourseUser>
@@ -77,33 +92,26 @@ const onListItemClick = ( id ) => {
       {isModalOpen && (
         <S.Modal ref={modalRef}>
           <S.ModalContent>
-            <S.CloseButton onClick={closeModal}>Закрыть</S.CloseButton>
+            {/* <S.CloseButton onClick={closeModal}>Закрыть</S.CloseButton> */}
             <S.ModalTitle>Выберите тренировку</S.ModalTitle>
             <S.ModalList>
-              { Object.values(selectedCourse).map((workout, i) => {
-                console.log(workout)
+              {Object.values(selectedCourse).map((workout, i) => {
+                const isCompleted = completedWorkouts[workout._id]
+                const isActive = selectedWorkoutId === workout._id
 
-                  return (
-                    <>
-                      <div
-                        key={(i, workout._id )}
-                        onClick={() => onListItemClick(workout._id)}
-                      >
-                        <S.ModalListItem
-                          active={workout.name === selectedItemId}
-                          className={
-                            workout.name === selectedItemId ? 'active' : ''
-                          }
-                        >
-                          {workout.name}
-                          {workout.name === selectedItemId && (
-                            <img src="/img/active_course.svg" alt="active_course" />
-                          )}
-                        </S.ModalListItem>
-                      </div>
-                    </>
-                  )
-                })}
+                return (
+                  <S.ModalListItem
+                    key={(i, workout._id)}
+                    onClick={() => onListItemClick(workout._id)}
+                    className={isActive ? 'active' : ''}
+                  >
+                    {workout.name}
+                    {isCompleted && isActive && (
+                      <img src="/img/active_item.svg" alt="active_item" />
+                    )}
+                  </S.ModalListItem>
+                )
+              })}
             </S.ModalList>
           </S.ModalContent>
         </S.Modal>
